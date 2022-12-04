@@ -1,0 +1,23 @@
+@use '../../../assets/styles/variable.module.scss' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.newsletter {
+    width: 90%;
+    margin: 0 auto;
+    form {
+        button {
+            background-color: $primary-color;
+            border-color: $primary-color;
+            &:hover {
+                border-color: $hover-color;
+                background-color: $hover-color;
+            }
+        }
+    }
+}
+

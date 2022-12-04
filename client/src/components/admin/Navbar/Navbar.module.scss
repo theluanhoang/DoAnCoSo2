@@ -1,0 +1,65 @@
+@use '../../../assets/styles/variable.module.scss' as *;
+
+.navbar {
+    background-color: #20232A;
+    &__wrapper {
+        display: flex;
+        justify-content: flex-end;
+        width: 95%;
+        margin: 0 auto;
+    }
+    &__categories {
+        width: 20%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        svg {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+        &--icon {
+            height: 40px;
+            width: 40px;
+            border-radius: 100rem;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            transition: all ease-in-out 0.2s;
+            &:hover {
+                transition: all ease-in-out 0.2s;
+                background-color: #fff;
+            }
+
+            &:hover svg {
+                color: #000;
+            }
+        }
+        &--user {
+            width: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 80%;
+            cursor: pointer;
+            transition: all ease-in-out 0.2s;
+            border-radius: 20px;
+            padding: 0 5px;
+            img {
+                width: 40px;
+            }
+            p {
+                color: #fff;
+                margin-top: 15px;
+                font-weight: 600;
+            }
+            &:hover {
+                transition: all ease-in-out 0.2s;
+                background-color: #fff;
+            }
+            &:hover p{
+                color: #000;
+            }
+        }
+    }
+}

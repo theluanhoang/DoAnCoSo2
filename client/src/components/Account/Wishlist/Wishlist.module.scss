@@ -1,0 +1,22 @@
+@use '../../../assets/styles/variable.module.scss' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wishlist {
+    width: 100%;
+    &Wrapper {
+        display: flex;
+        width: 80%;
+        justify-content: space-around;
+        margin: 0 auto;
+        flex-wrap: wrap;
+    }
+    h1 {
+        text-align: center;
+        color: $primary-color;
+    }
+}

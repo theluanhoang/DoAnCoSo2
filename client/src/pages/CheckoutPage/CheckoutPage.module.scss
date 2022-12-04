@@ -1,0 +1,252 @@
+.CheckoutPage {
+    &__wrapper {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+    }
+    &__main {
+        margin-top: 50px;
+        width: 55%;
+        &-list {
+            display: flex;
+            li:nth-child(1):before {
+                content: '';
+            }
+            li:before {
+                content: '>'
+            }
+        }
+        &--content {
+            width: 80%;
+            margin: 0 auto;
+        }
+        &--footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        form {
+            width: 90%;
+            margin: 0 auto;
+        }
+        &-table {
+            tr {
+                margin: 10px 20px;
+                td {
+                    margin: 10px 20px;
+                    input, textarea{
+                        margin: 0 20px;
+                        box-shadow: 0 0 0 1px #d9d9d9;
+                        transition: all 0.2s ease-out;
+                        background-color: white;
+                        color: #333333;
+                        border-radius: 4px;
+                        display: block;
+                        box-sizing: border-box;
+                        width: 100% !important;
+                        padding: 0.94em 2.8em 0.94em 0.8em;
+                        word-break: normal;
+                        outline: none;
+                        -webkit-appearance: none;
+                        -webkit-font-smoothing: inherit;
+                        border: none;
+                        background: transparent;
+                        line-height: normal;
+                    }
+                }
+            }
+        }
+    }
+    &__sidebar {
+        width: 40%;
+        border-left: 2px solid #ECECEC;
+        background-color: #FAFAFA;
+        &-products {
+            margin-top: 50px;
+            ul {
+                li {
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    .CheckoutPage__sidebar-media {
+                        display: flex;    
+                        justify-content: space-between;
+                        width: 38%;                    
+                        div {
+                            overflow: hidden;
+                            width: 70px;
+                            height: 70px;
+                            border: 3px solid #ECECEC;
+                            border-radius: 10px;
+                            img {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.col {
+    width: 48%;
+}
+
+.line {
+    width: 80%;
+    height: 1px;
+    background-color: #ECECEC;
+    margin: 20px auto;
+}
+
+.section .section-header {
+    position: relative;
+}
+
+.section .section-title {
+    color: #333333;
+}
+
+.section .section-content:last-child {
+    margin-bottom: inherit;
+}
+
+.section .section-content:before {
+    content: "";
+    display: table;
+}
+
+.section .section-content .content-box:first-child {
+    margin-top: 0;
+}
+
+.section .section-content .content-box {
+    box-shadow: 0 0 0 1px #d9d9d9;
+    border-radius: 4px;
+    background: #fff;
+    color: #737373;
+    border: none;
+}
+
+.section .section-content .content-box .content-box-row:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.section .section-content .content-box .content-box-row:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top: none;
+}
+
+.section .section-content .content-box > div:not(.radio-wrapper) {
+    padding: 0 10px 10px 10px;
+}
+
+.section .section-content .content-box .content-box-row {
+    display: table;
+    box-sizing: border-box;
+    width: 100%;
+    zoom: 1;
+}
+
+.content-box {
+    color: #737373;
+}
+
+.section .section-content .content-box .content-box-row:before {
+    content: "";
+    display: table;
+}
+
+.radio-wrapper:last-child {
+    margin-bottom: 0;
+}
+
+.radio-wrapper:before {
+    content: "";
+    display: table;
+}
+
+.radio-wrapper .radio-label {
+    display: flex !important;
+    cursor: pointer !important;
+    align-items: center !important;
+    padding: 1.3em !important;
+    width: auto !important;
+    vertical-align: middle;
+}
+
+.radio-wrapper .radio-input {
+    display: table-cell;
+    padding-right: 0.75em;
+    white-space: nowrap;
+    cursor: pointer !important;
+}
+
+.radio-wrapper .radio-input .input-radio:checked {
+    border: none;
+    box-shadow: 0 0 0 10px #000000 inset;
+}
+
+.radio-wrapper .radio-input .input-radio {
+    border-radius: 50%;
+}
+
+.radio-wrapper .radio-input .input-radio {
+    width: 18px;
+    height: 18px;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    cursor: pointer;
+    vertical-align: -4px;
+    outline: 0;
+    border-radius: 100rem;
+}
+
+.radio-wrapper .radio-label .radio-label-primary {
+    display: table-cell;
+    width: 100%;
+    cursor: pointer;
+}
+
+.section .section-content .content-box .content-box-emphasis {
+    font-weight: 500;
+    color: #4d4d4d;
+}
+
+.radio-wrapper .radio-accessory {
+    display: table-cell;
+    padding-left: 0.75em;
+    white-space: nowrap;
+}
+
+.radio-wrapper:after, .section .section-content .content-box .content-box-row:after, .section .section-content:after {
+    content: "";
+    display: table;
+}
+
+.text-danger {
+    color: #a94442;
+}
+
+.btn {
+    background-color: #000;
+    border-color: #000;
+    font-weight: 500;
+    padding: 0.98em 1.7em;
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+    border: 1px transparent solid;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    color: white;
+}
+
+.step-footer-previous-link {
+    font-weight: bold;
+    cursor: pointer
+}

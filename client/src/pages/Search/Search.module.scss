@@ -1,0 +1,73 @@
+.search {
+    &__wrapper {
+        width: 80%;
+        margin: 0 auto;
+        
+        &--title {
+            h1 {
+                padding: 10px 0;
+                font-size: 30px;
+                font-weight: 600;
+                color: #000;
+            }
+        }
+        &--option {
+            display: flex;
+            align-items: center;
+            a {
+                color: #333;
+                font-size: 14px;
+                position: relative;
+                text-decoration: none;
+                background: transparent;
+                transition: all 150ms ease-in-out;
+                &:first-child {
+                    margin-right: 15px;
+                }
+                i {
+                    position: relative;
+                    height: 16px;
+                    width: 16px;
+                    border: 1px solid #e5e5e5;
+                    border-radius: 50%;
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin: -3px 5px 0 0;
+                    position: relative;
+                }
+                &:hover {
+                    color: #3ba66b;
+                    i {
+                        border: 1px solid #3ba66b;
+                        &::before {
+                            content: "";
+                            width: 8px;
+                            height: 8px;
+                            background-color: #3ba66b;
+                            position: absolute;
+                            border-radius: 50%;
+                            margin: 3px;
+                        }
+                    }
+                }
+            }
+            .active {
+                color: #3ba66b;
+                i {
+                    border: 1px solid #3ba66b;
+                    &::before {
+                        content: "";
+                        width: 8px;
+                        height: 8px;
+                        background-color: #3ba66b;
+                        position: absolute;
+                        border-radius: 50%;
+                        margin: 3px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+

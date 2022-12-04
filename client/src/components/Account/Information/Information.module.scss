@@ -1,0 +1,29 @@
+@use '../../../assets/styles/variable.module.scss' as *;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.information {
+    form {
+        width: 33.33%;
+        margin: 0 auto;
+        button {
+            background-color: $primary-color;
+            border-color: $primary-color;
+            &:hover {
+                border-color: $hover-color;
+                background-color: $hover-color;
+            }
+        }
+    }
+    label {
+        font-weight: 600;
+        color: $fifth-color;
+    }
+    h1 {
+        text-align: center;
+        color: $primary-color;
+    }
+}

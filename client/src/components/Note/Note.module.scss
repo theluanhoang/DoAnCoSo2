@@ -1,0 +1,55 @@
+.ProductPage {
+    &__note {
+        margin-bottom: 30px;
+        height: 200px;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        background-image: url('https://sfresh.w2.exdomain.net/catalog/view/theme/sfresh/image/bg-breadcrumb.jpg');
+        &--container {
+            width: 95%;
+            margin: 0 auto;
+        }
+        &--title {
+            color: #000;
+            font-weight: 700;
+            font-size: 24px;
+            text-align: center;
+        }
+        &--list {
+            color: #fff;
+            text-align: center;
+            background-color: transparent;
+            font-size: 14px;
+        }
+        &--item {
+            display: inline-block;
+            &::after {
+                content: "/";
+                padding: 0 5px;
+                color: #000;
+            }
+            &:last-child {
+                &::after {
+                    content: "";
+                }
+                a {
+                    span {
+                        font-weight: 750;
+                    }
+                }
+            }
+            
+            a {
+                color: #000;
+                span {
+                    display: inline;
+                    color: #000;
+                    padding: 0 2px;
+                }
+            }
+        }
+
+    }
+}

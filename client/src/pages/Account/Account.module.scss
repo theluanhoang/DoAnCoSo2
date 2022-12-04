@@ -1,0 +1,51 @@
+@use '../../assets/styles/variable.module.scss' as *;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.account {
+    table {
+        width: 85%;
+        margin: 0 auto;
+        th {
+            color: $primary-color;
+        }
+        a {
+            color: $fourth-color;
+            &:hover {
+                color: $third-color;
+            }
+        }
+    }
+}
+
+.signUp {
+    &__success {
+        &--banner {
+            width: 100%;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            height: 200px;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            margin-top: -20px;
+            
+            img{ 
+                width: 100%;
+                padding-top: 200px;
+            }
+        }
+        &--status {
+            font-weight: 700;
+            text-align: center;
+            position: absolute;
+            top: 25%;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}

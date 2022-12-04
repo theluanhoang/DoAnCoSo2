@@ -1,0 +1,63 @@
+@use '../../assets/styles/variable.module.scss' as *;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.signUp {
+    &__success {
+        &--banner {
+            width: 100%;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            height: 200px;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            margin-top: -20px;
+            
+            img{ 
+                width: 100%;
+                padding-top: 200px;
+            }
+        }
+        &--status {
+            font-weight: 700;
+            text-align: center;
+            position: absolute;
+            top: 15%;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        &--content {
+            font-weight: 600;
+            &Wrapper {
+                width: 85%;
+                margin: 0 auto;
+            }
+        }
+        &--btn {
+            width: 100px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            color: #fff;
+            background-color: $fifth-color;
+            transition: all ease-in-out 0.2s;
+            cursor: pointer;
+            &:hover {
+                transition: all ease-in-out 0.2s;
+                color: $fifth-color;
+                background-color: #fff;
+                border: 1px solid $fifth-color;
+            }
+        }
+        position: relative;
+        z-index: 0;
+    }
+}

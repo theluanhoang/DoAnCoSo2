@@ -1,0 +1,11 @@
+export const modalCartState$ = (state) => state.modalCart ;
+export const modalAdminState$ = (state) => state.modalAdmin ;
+export const changeCartState$ = (state) => state.changeCart ;
+export const productsState$ = (state) => state.products.data;
+export const shoppingCartState$ = (state) => state.shoppingCart.data;
+export const customersState$ = (state) => state.customers.data;
+export const distributorsState$ = (state) => state.distributors.data;
+export const categoryState$ = (state) => state.category.data;
+export const loginState$ = (state) => state.login.currentUser;
+export const reloadState$ = (state) => state.reload.value;
+export const componentState$ = (state) => state.components.data;
