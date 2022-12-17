@@ -3,8 +3,7 @@ import styles from './HomePage.module.scss'
 import classNames from 'classnames/bind'
 import Navbar from '../../components/Navbar'
 import { Banner1, Banner2, Banner3, Banner4, Banner5, BannerShipper, BgrMainBanner, Item1, Item2, Item3, Item4, Item5, Item6, News1, News2, News3, News4, NewsTheme, Product1, Product2, Product3, Product4, Product5, Product6, Product7, Product8, SVG } from '../../assets/img'
-import { Link } from 'react-router-dom'
-import ProductList from '../../components/ProductList'
+import { Link, useLocation } from 'react-router-dom'
 import { RiArrowRightSFill, RiArrowLeftSFill } from 'react-icons/ri'
 import Slide from '../../components/ProductList/Slide'
 import Banner from '../../components/BannerList/Banner'
@@ -23,8 +22,8 @@ const cx = classNames.bind(styles)
 
 function HomePage() {
   const dispatch = useDispatch();
-  const { isShowModalCart } = useSelector(modalCartState$);
   const products = useSelector(productsState$);
+  const { isShowModalCart } = useSelector(modalCartState$);
   const currentUser = useSelector(loginState$);
   const [slide, setSlide] = React.useState(0);
   const [slide2, setSlide2] = React.useState(0);
@@ -64,11 +63,12 @@ function HomePage() {
   const marginLeft = slide * 277 + 'px'
   const marginLeft2 = slide2 * 240 + 'px'
 
+
   React.useEffect(() => {
     dispatch(getProducts.getProductsRequest());
     setLength(products.length);
-    console.log(length);
 }, [dispatch]);
+
 
   return (
     <div className={cx('homePage')}>
@@ -131,7 +131,6 @@ function HomePage() {
             </Link>
           </div>
           <div className={cx('homePage__endowList--display')}>
-            {/* <ProductList marginLeft={marginLeft} /> */}
             <ul className={cx('productList')} style={{ marginLeft: marginLeft, transition: 'all ease-in-out 0.4s' }}>
               {
                 products.map((product) => (

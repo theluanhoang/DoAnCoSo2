@@ -3,7 +3,6 @@ const { ShoppingCart, QL_ShoppingCart } = require('../models/ShoppingCart.model'
 class ShoppingCartControl {
     create(req, res) {
         const newShoppingCartItem = new ShoppingCart(req.body);
-        console.log(newShoppingCartItem);
         QL_ShoppingCart.addShoppingCart(newShoppingCartItem, (err, result) => {
             if (err) res.status(500).send('error: ', err)
             else {
@@ -40,7 +39,7 @@ class ShoppingCartControl {
 
     delete(req, res) {
         let customerId= req.body.customerId;
-        let productId= req.body.productId;
+        let productId= req.body.itemId;
         QL_ShoppingCart.deleteShoppingCart( customerId, productId , (err, result) => {
             if (err) {
                 console.log('err: ', err);

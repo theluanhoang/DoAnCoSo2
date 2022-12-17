@@ -8,7 +8,8 @@ class AccountControl {
         let password = encrypt(req.body.password);
         const newAccount = new Account({
             ...req.body,
-            password: password
+            password: password,
+            admin: 0
         })
         QL_Account.addAccount(newAccount, (err, result) => {
             if (err) return res.status(500).end('error: ', err)
@@ -69,6 +70,7 @@ class AccountControl {
     }
 
     delete(req, res) {
+        console.log('req.user.admin: ', req.user);
         QL_Account.deleteAccount(req.params.id, (err, result) => {
             if (err) {
                 console.log('err: ', err);

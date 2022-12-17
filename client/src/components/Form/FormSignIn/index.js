@@ -3,10 +3,9 @@ import styles from '../FormSignUp/FormSignUp.module.scss'
 import classNames from 'classnames/bind'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAccount } from '../../../redux/actions'
-import { loginState$ } from '../../../redux/selectors'
-
 
 import { Link, useNavigate } from 'react-router-dom'
+import { notificationSuccess } from '../../../notification'
 
 const cx = classNames.bind(styles)
 
@@ -20,17 +19,8 @@ function FormSignIn() {
             email: email,
             password: password,
         }
-        dispatch(loginAccount.loginStart(newAccount, navigate));
-        // if (dispatch(loginAccount.loginSuccess())) {
-        //     console.log("Successfully");
-        // }
-        // else if (dispatch(loginAccount.loginError())) {
-        //     console.log("Failure");
-        // }
-        // if () {
-        navigate('/');
-        // }
-
+        dispatch(loginAccount.loginStart(newAccount));
+        navigate('/', {state: notificationSuccess});
     }
     return (
         <div className={cx('form')}>

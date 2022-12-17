@@ -11,6 +11,9 @@ import News from './pages/NewsPage';
 import Search from './pages/Search';
 import CheckoutPage from './pages/CheckoutPage';
 import CheckoutPageSuccess from './pages/CheckoutPage/CheckoutSuccess';
+import IntroducePage from './pages/IntroducePage';
+import ContactPage from './pages/ContactPage';
+import Products from './pages/Products';
 
 function App() {
 
@@ -39,9 +42,12 @@ function App() {
         <Route path='/account/password' element={<Account slug={'password'} />} />
         <Route path='/product/:id' element={<ProductPage />} />
         <Route path='/news' element={<News />} />
-        <Route path='/search' element={<Search />} />
+        <Route path='/search/:key' element={<Search />} />
         <Route path='/checkout/checkout/' element={<CheckoutPage />}/>
         <Route path='/checkout/success/' element={<CheckoutPageSuccess />}/>
+        <Route path='/introduce/' element={<IntroducePage />}/>
+        <Route path='/contact/' element={<ContactPage />}/>
+        <Route path='/products/' element={<Products />}/>
       </Routes>
     </div>
   );

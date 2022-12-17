@@ -9,7 +9,7 @@ import * as actions from '../../redux/actions'
 
 const cx = classNames.bind(styles)
 
-function ProductList({ marginLeft }) {
+function ProductList({ marginLeft, border }) {
     const dispatch = useDispatch();
     const products = useSelector(productsState$);
     React.useEffect(() => {
@@ -28,6 +28,7 @@ function ProductList({ marginLeft }) {
                         salePercent={product.salePercent}
                         image={product.image}
                         product={product}
+                        border={border}
                     />
                 ))
             }

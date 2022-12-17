@@ -14,7 +14,6 @@ import Table from '../../../components/admin/Table'
 const cx = classNames.bind(styles)
 
 function ProductPage() {
-
     const dispatch = useDispatch();
     const products = useSelector(productsState$);
     const { isShowModalUpdateProduct, isShowModalDeleteProduct } = useSelector(modalAdminState$);
@@ -44,7 +43,7 @@ function ProductPage() {
                 <AppTitle title={'Danh sách sản phẩm'} />
             </div>
             <div className={cx('productPage__wrapper')}>
-                <Functions />
+                <Functions data={products}/>
                 <div className={cx('productPage__dataTable--wrapper')}>
                     <Table data={products} showModalUpdate={showModalUpdate} showModalDelete={showModalDelete} titleTable={['Mã sản phẩm', 'Tên sản phẩm', 'Ảnh', 'Số lượng', 'Tình trạng', 'Giá tiền', 'Danh mục', 'Chức năng']} />
                 </div>

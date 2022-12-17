@@ -64,10 +64,10 @@ function UpdateProduct() {
             image: image,
             priceCurrent: priceCurrent,
             priceCost: priceCost,
-            category: category.value || '',
+            category: category ? category.value : '',
             salePercent: salePercent,
-            distributor: distributor.value || '',
-            status: status.value || '',
+            distributor: distributor ? distributor.value : '',
+            status: status ? status.value : '',
         }
 
         Axios.post(`http://localhost:5000/products/update/${id}`,

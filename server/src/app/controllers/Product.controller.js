@@ -24,6 +24,14 @@ class ProductControl {
             else res.send(data);
         });
     }
+
+    getLimit(req, res) {
+        const limit = req.params.limit;
+        QL_Product.getLimit(limit, (err, data) => {
+            if (err) res.send("err", err);
+            else res.send(data);
+        });
+    }
     
 
     update(req, res) {
@@ -46,6 +54,27 @@ class ProductControl {
             }
 
         });
+    }
+
+    search(req, res) {
+        QL_Product.search(req.params.key, (err, result) => {
+            if (err) {
+                console.log('err: ', err);
+            } else {
+                res.status(200).send(result);
+            };
+        })
+    }
+
+    order(req, res) {
+        const query = req.body.query;
+        QL_Product.order(query, (err, result) => {
+            if (err) {
+                console.log('err: ', err);
+            } else {
+                res.status(200).send(result);
+            };
+        })
     }
 }
 

@@ -1,7 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import * as actions from '../actions';
 import * as api from '../../api';
-import history from '../../history';
 
 function* fetchProductsSaga(action) {
   try {
@@ -10,6 +9,16 @@ function* fetchProductsSaga(action) {
   } catch (err) {
     console.error(err);
     yield put(actions.getProducts.getProductsFailure(err));
+  }
+}
+
+function* orderSaga(action) {
+  try {
+    const products = yield call(api.order, action.payload);
+    yield put(actions.order.orderSuccess(products.data));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.order.orderFailure(err));
   }
 }
 
@@ -77,7 +86,6 @@ function* fetchProductSaga(action) {
   try {
     const product = yield call(api.getProduct, action.payload);
     yield put(actions.getProduct.getProductSuccess(product.data));
-    history.push('/'); //  Redirect to Home Page
   } catch (err) {
     yield put(actions.getProduct.getProductFailure(err));
   }
@@ -93,12 +101,32 @@ function* createProductSaga(action) {
   }
 }
 
+function* sendFeedbackSaga(action) {
+  try {
+    const feedback = yield call(api.sendFeedback, action.payload);
+    yield put(actions.sendFeedback.sendFeedbackSuccess(feedback.data));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.sendFeedback.sendFeedbackFailure(err));
+  }
+}
+
+function* searchProductSaga(action) {
+  try {
+    const products = yield call(api.searchProduct, action.payload);
+    yield put(actions.search.searchSuccess(products.data));
+  } catch (err) {
+    console.error(err);
+    yield put(actions.search.searchFailure(err));
+  }
+}
+
 function* login(action) {
   try {
     const user = yield call(api.loginUser, action.payload);
     yield put(actions.loginAccount.loginSuccess(user.data));
   } catch (err) {
-    console.error(err);
+    console.error(err); 
     yield put(actions.loginAccount.loginError(err));
   }
 }
@@ -115,6 +143,9 @@ function* updateProductSaga(action) {
 
 function* mySaga() {
   yield takeLatest(actions.getProducts.getProductsRequest, fetchProductsSaga);
+  yield takeLatest(actions.order.orderRequest, orderSaga);
+  yield takeLatest(actions.sendFeedback.sendFeedbackRequest, sendFeedbackSaga);
+  yield takeLatest(actions.search.searchRequest, searchProductSaga);
   yield takeLatest(actions.getShoppingCart.getShoppingCartRequest, fetchShoppingCartSaga);
   yield takeLatest(actions.deleteShoppingCartItem.deleteShoppingCartItemRequest, deleteShoppingCartItem);
   yield takeLatest(actions.updateShoppingCartItem.updateShoppingCartItemRequest, updateShoppingCartItem);

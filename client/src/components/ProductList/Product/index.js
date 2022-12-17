@@ -11,7 +11,7 @@ const cx = classNames.bind(styles)
 let id;
 function Product({ image, setting, title, priceCurrent, salePercent, border, product }) {
     const [obj, setObj] = React.useState({});
-    id = product.id ? product.id : ''
+    id = product ? product.id : ''
     let priceSale, priceOld;
 
     let productItem = React.useRef();
@@ -43,8 +43,12 @@ function Product({ image, setting, title, priceCurrent, salePercent, border, pro
     }
     const addToCart = () => {
         const item = {
-            'customerId': '21',
-            'productId':  product.id
+            customerId: '21',
+            productTitle:  product.title,
+            productPriceCurrent: product.priceCurrent, 
+            productPriceCost: product.priceCost, 
+            productImage: image, 
+            productSalePercent: product.salePercent, 
         }
 
         Axios.post('http://localhost:5000/shopping-cart/add', item)
@@ -59,7 +63,7 @@ function Product({ image, setting, title, priceCurrent, salePercent, border, pro
     return (
         <div className={cx('product', border ? 'border' : '')}>
             <div className={cx('productTop')}>
-                <Link to={`/product/`+ id}>
+                <Link to={`/product/${id}`}>
                     <img src={image} alt='endow' className={cx('product--image')} />
                 </Link>
                 <div className={cx('product__button')}>

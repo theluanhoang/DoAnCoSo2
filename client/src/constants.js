@@ -6,6 +6,10 @@ export const INIT_STATE = {
         isLoading: false,
         data: []
     },
+    limitProducts: {
+        isLoading: false,
+        data: []
+    },
     customers: {
         isLoading: false,
         data: []
@@ -32,5 +36,18 @@ export const INIT_STATE = {
     shoppingCart: {
         isLoading: false,
         data: []
+    },
+    feedback: {
+        isLoading: false,
+        data: []
+    },
+    search: {
+        isLoading: false,
+        data: [],
+        keyword: ''
+    },
+    order: { 
+        isLoading: false,
+        data: [],
     }
 }

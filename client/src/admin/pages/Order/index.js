@@ -15,7 +15,7 @@ function Order() {
         <AppTitle title={'Danh sách đơn hàng'} />
       </div>
       <div className={cx('orderPage__wrapper')}>
-        <Functions />
+        <Functions data={[]}/>
         <div className={cx('orderPage__table')}>
           <div className={cx('productPage__dataTable--header')}>
             <ul>

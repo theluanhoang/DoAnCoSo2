@@ -2,10 +2,13 @@ import React from 'react'
 import styles from './Functions.module.scss'
 import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom'
-
+import { CSVLink } from 'react-csv'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import PDF from '../PDF'
 const cx = classNames.bind(styles)
 
-function Functions() {
+function Functions({data}) {
+    
     return (
         <ul className={cx('functions')}>
             <li>
@@ -33,16 +36,16 @@ function Functions() {
                 </Link>
             </li>
             <li>
-                <Link to='' style={{ backgroundColor: '#a2ecb5', color: '#008c04' }}>
+                <CSVLink data={data} style={{ backgroundColor: '#a2ecb5', color: '#008c04' }}>
                     <i className='fas fa-file-excel'></i>
                     {" Xuất Excel"}
-                </Link>
+                </CSVLink>
             </li>
             <li>
-                <Link to='' style={{ backgroundColor: '#efcaca', color: '#bf0000' }}>
+                <PDFDownloadLink document={<PDF data={data}/>} fileName="FORM" style={{ backgroundColor: '#efcaca', color: '#bf0000' }}>
                     <i className='fas fa-file-pdf'></i>
                     {" Xuất PDF"}
-                </Link>
+                </PDFDownloadLink>
             </li>
             <li>
                 <Link to='' style={{ backgroundColor: '#d0d0d0', color: '#000' }}>

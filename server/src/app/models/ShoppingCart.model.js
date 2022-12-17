@@ -5,14 +5,18 @@ class ShoppingCart {
     constructor(shoppingCartItem) {
         this.id = uuidv4();
         this.customerId = shoppingCartItem.customerId;
-        this.productId = shoppingCartItem.productId;
+        this.productTitle = shoppingCartItem.productTitle;
+        this.productPriceCurrent = shoppingCartItem.productPriceCurrent;
+        this.productPriceCost = shoppingCartItem.productPriceCost;
+        this.productSalePercent = shoppingCartItem.productSalePercent;
+        this.productImage = shoppingCartItem.productImage;
         this.quantity = 1;
     }
 }
 
 class QL_ShoppingCart {
     static getAll(userId, callback) {
-        let query = "SELECT p.id, p.title, p.priceCurrent, p.salePercent, p.image, p.priceCost, S.quantity FROM shopping_cart S INNER JOIN product p ON S.productId = p.id INNER JOIN account A ON S.customerId = A.id WHERE A.id = ?";
+        let query = "SELECT * FROM shopping_cart WHERE customerId = ?";
         db.query(query, userId, (err, res) => {
             if (err) {
                 console.log("error: ", err);
@@ -48,8 +52,8 @@ class QL_ShoppingCart {
     }
 
     static updateShoppingCart(shoppingCartItem, callback) {
-        let sql = "UPDATE shopping_cart SET quantity = ? WHERE productId = ? AND customerId = ?";
-        db.query(sql, [shoppingCartItem.quantity, shoppingCartItem.productId, shoppingCartItem.customerId], (err, res) => {
+        let sql = "UPDATE shopping_cart SET quantity = ? WHERE id = ? AND customerId = ?";
+        db.query(sql, [shoppingCartItem.quantity, shoppingCartItem.itemId, shoppingCartItem.customerId], (err, res) => {
             if (err) {
                 console.log("error: ", err);
                 callback(null, err);
@@ -66,7 +70,7 @@ class QL_ShoppingCart {
     }
 
     static deleteShoppingCart(customerId, productId, callback) {
-        let sql = "DELETE FROM `shopping_cart` WHERE `shopping_cart`.`productId` = ? AND `shopping_cart`.`customerId` = ?";
+        let sql = "DELETE FROM `shopping_cart` WHERE `shopping_cart`.`id` = ? AND `shopping_cart`.`customerId` = ?";
         db.query(sql, [productId, customerId], (err, res) => {
             if (err) {
                 console.log("error: ", err);

@@ -2,10 +2,29 @@ import React from 'react'
 import styles from './Table.module.scss'
 import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProducts, search } from '../../../redux/actions'
+import { searchState$ } from '../../../redux/selectors'
+import Pagination from '../../Pagination'
 
 const cx = classNames.bind(styles)
 
 function Table({ data, showModalUpdate, showModalDelete, titleTable }) {
+    const [query, setQuery] = React.useState('')
+    const [limit, setLimit] = React.useState('')
+    const dispatch = useDispatch();
+
+    const products = useSelector(searchState$);
+
+    const handleSearch = (e) => {
+        setQuery(e.target.value);
+        dispatch(search.searchRequest(e.target.value));
+    }
+
+    React.useEffect(() => {
+        dispatch(getProducts.getProductsRequest(limit || data.length));
+    }, [limit])
+
     return (
         <>
             <div className={cx('productPage__dataTable--header')}>
@@ -13,14 +32,14 @@ function Table({ data, showModalUpdate, showModalDelete, titleTable }) {
                     <li className={cx('productPage__dataTable--headerLeft')}>
                         <label>
                             {"Hiện "}
-                            <select name="sampleTable_length" aria-controls="sampleTable"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>
+                            <select name="sampleTable_length" aria-controls="sampleTable" onChange={(e) => setLimit(e.target.value)}><option value="5">5</option><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>
                             {" danh mục"}
                         </label>
                     </li>
                     <li className={cx('productPage__dataTable--headerRight')}>
                         <label>
                             {"Tìm kiếm: "}
-                            <input type="search" placeholder="" aria-controls="sampleTable" />
+                            <input type="search" placeholder="" aria-controls="sampleTable" onChange={handleSearch} />
                         </label>
                     </li>
                 </ul>
@@ -43,7 +62,7 @@ function Table({ data, showModalUpdate, showModalDelete, titleTable }) {
                     </thead>
                     <tbody>
                         {
-                            data.map((product, index) => (
+                            products.length > 0 ? products.map((product, index) => (
                                 <tr key={index} role="row" className={cx("odd")}>
                                     <td width="10" className={cx("sorting_1")}><input type="checkbox" name="check1" value="1" /></td>
                                     <td>{product?.id}</td>
@@ -64,7 +83,29 @@ function Table({ data, showModalUpdate, showModalDelete, titleTable }) {
                                         <Link to={'/admin/products/' + product.id} className={cx("btn", "btn-primary", "btn-sm", "edit")} onClick={showModalUpdate}><i class="fas fa-edit"></i></Link>
                                     </td>
                                 </tr>
-                            ))
+                            )) :
+                                data?.map((product, index) => (
+                                    <tr key={index} role="row" className={cx("odd")}>
+                                        <td width="10" className={cx("sorting_1")}><input type="checkbox" name="check1" value="1" /></td>
+                                        <td>{product?.id}</td>
+                                        <td>{product?.title}</td>
+                                        <td><img src={product?.image} alt="" width="100px;" /></td>
+                                        <td>{product?.qty}</td>
+                                        <td>
+                                            {
+                                                product?.status === 'Còn hàng' ?
+                                                    <span className={cx("badge", "bg-success")}>Còn hàng</span> :
+                                                    <span className={cx("badge", "bg-danger")}>Hết hàng</span>
+                                            }
+                                        </td>
+                                        <td>{product?.priceCurrent} đ</td>
+                                        <td>Trái cây</td>
+                                        <td>
+                                            <Link to={'/admin/products/' + product.id} className={cx("btn", "btn-primary", "btn-sm", "trash")} onClick={showModalDelete} title="Xóa"><i class="fas fa-trash-alt"></i></Link>
+                                            <Link to={'/admin/products/' + product.id} className={cx("btn", "btn-primary", "btn-sm", "edit")} onClick={showModalUpdate}><i class="fas fa-edit"></i></Link>
+                                        </td>
+                                    </tr>
+                                ))
                         }
                     </tbody>
 
@@ -73,7 +114,7 @@ function Table({ data, showModalUpdate, showModalDelete, titleTable }) {
             <div className={cx('productPage__dataTable--footer', 'row')}>
                 <div class="col-sm-12 col-md-5">
                     <div className={cx("dataTables_info")} id="sampleTable_info" role="status" aria-live="polite">
-                        Hiện 1 đến 10 của 16 danh mục
+                        Hiện 1 đến 10 của {data.length} danh mục
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-7">

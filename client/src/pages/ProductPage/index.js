@@ -10,6 +10,7 @@ import { products } from '../../products';
 import Note from '../../components/Note';
 import Axios from 'axios';
 import ReactHtmlParser from 'react-html-parser';
+import ProductList from '../../components/ProductList';
 
 const cx = classNames.bind(styles);
 
@@ -179,20 +180,8 @@ function ProductPage() {
                 <div className={cx('RelatedProducts__title')}>
                   <Link title='Sản phẩm liên quan' to={''}>Sản phẩm liên quan</Link>
                 </div>
-                <div className={cx('RelatedProducts__list')} style={{ marginLeft: '60px' }}>
-                  <ul>
-                    {
-                      products.map((product, index) => (
-                        <Product
-                          title={product.title}
-                          image={product.image}
-                          salePercent={product.salePercent}
-                          priceCurrent={product.priceCurrent}
-                          border='true'
-                        />
-                      ))
-                    }
-                  </ul>
+                <div className={cx('RelatedProducts__list')} style={{ marginLeft: '-30px' }}>
+                  <ProductList />
                 </div>
               </div>
             </div>

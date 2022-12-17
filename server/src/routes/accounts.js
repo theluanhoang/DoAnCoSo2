@@ -1,17 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const AccountControllers = require('../app/controllers/Account.controller');
-const middlewareController = require('../app/controllers/Middleware.controller');
+const { verifyToken, verifyTokenAndAdmin } = require('../app/controllers/verifyToken.controller');
 
 router.post('/sign-up', AccountControllers.create);
 router.post('/login', AccountControllers.login);
-router.get('/', AccountControllers.getCustomers);
-// router.get('/', middlewareController.verifyToken, AccountControllers.index);
-router.get('/:id', AccountControllers.getAccount);
-// router.get('/delete/:id', middlewareController.verifyTokenAndAdminAuth, AccountControllers.delete);
-router.get('/delete/:id', AccountControllers.delete);
-router.post('/update/:id', AccountControllers.update);
+router.get('/', verifyToken, AccountControllers.index);
+router.get('/:id', verifyToken, AccountControllers.getAccount);
+router.get('/delete/:id', verifyTokenAndAdmin, AccountControllers.delete);
+router.post('/update/:id', verifyTokenAndAdmin, AccountControllers.update);
 router.post('/refresh', AccountControllers.requestRefreshToken);
-router.post('/logout', middlewareController.verifyToken, AccountControllers.logout);
+router.post('/logout', verifyToken, AccountControllers.logout);
 
 module.exports = router

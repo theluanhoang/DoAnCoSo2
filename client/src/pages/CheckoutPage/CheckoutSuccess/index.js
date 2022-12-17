@@ -1,11 +1,14 @@
 import React from 'react'
 import styles from './CheckoutPageSuccess.module.scss'
 import classNames from 'classnames/bind'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
 function CheckoutPageSuccess() {
+    const location = useLocation();
+    const information = React.useRef();
+    information.current = location.state;
     return (
         <div className={cx('CheckoutPageSuccess')}>
             <div className={cx('CheckoutPageSuccess__container')}>
@@ -16,7 +19,7 @@ function CheckoutPageSuccess() {
                         </div>
                         <div className={cx("thankyou-message-container")}>
                             <h2 className={cx("section__title")}>Cảm ơn bạn đã đặt hàng!</h2>
-                            <p className={cx("section__text")}>Một email xác nhận đã được gửi tới hoangtheluan2021@gmail.com.<br />Xin vui lòng kiểm tra email của bạn.</p>
+                            <p className={cx("section__text")}>{`Một email xác nhận đã được gửi tới ${information.current.email}.`}<br />Xin vui lòng kiểm tra email của bạn.</p>
                         </div>
                     </section>
                     <section className={cx('section')}>
@@ -24,19 +27,19 @@ function CheckoutPageSuccess() {
                             <div className={cx("row")}>
                                 <div className={cx("col", "col--md-two")}>
                                     <h2>Thông tin mua hàng</h2>
-                                    <p>Hoàng Thế Luân</p>
-                                    <p>hoangtheluan2021@gmail.com</p>
-                                    <p>0379124695</p>
+                                    <p>{information.current.customerName}</p>
+                                    <p>{information.current.email}</p>
+                                    <p>{information.current.phoneNumber}</p>
                                 </div>
                                 <div className={cx("col", "col--md-two")}>
                                     <h2>Địa chỉ nhận hàng</h2>
-                                    <p>Số 123 Nguyễn Minh Châu</p>
+                                    <p>{information.current.delivery_address}</p>
                                 </div>
                             </div>
                             <div className={cx("row")}>
                                 <div className={cx("col", "col--md-two")}>
                                     <h2>Phương thức thanh toán</h2>
-                                    <p>Chuyển khoản</p>
+                                    <p>{information.current.payments}</p>
                                 </div>
                                 <div className={cx("col", "col--md-two")}>
                                     <h2>Phương thức vận chuyển</h2>

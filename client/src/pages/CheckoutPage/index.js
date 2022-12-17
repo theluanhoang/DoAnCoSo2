@@ -1,18 +1,47 @@
 import React from 'react'
 import styles from './CheckoutPage.module.scss'
 import classNames from 'classnames/bind'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
-import { shoppingCartState$ } from '../../redux/selectors'
-import { useSelector } from 'react-redux'
+import { loginState$, shoppingCartState$ } from '../../redux/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Axios from 'axios'
 
 
 const cx = classNames.bind(styles)
 
 function CheckoutPage() {
+    const navigate = useNavigate();
+    const currentUser = useSelector(loginState$);
     const [isPayment, setIsPayment] = React.useState(false);
     const shoppingCart = useSelector(shoppingCartState$);
+    const [customerName, setCustomerName] = React.useState('');
+    const [customerEmail, setCustomerEmail] = React.useState('');
+    const [customerPhone, setCustomerPhone] = React.useState('');
+    const [customerAddress, setCustomerAddress] = React.useState('');
+    const [customerNote, setCustomerNote] = React.useState('');
+    const [customerPayment, setCustomerPayment] = React.useState('');
+
+    const handlerOrder = () => {
+        const order = {
+            customerId: currentUser.id || '',
+            customerName: customerName,
+            email: customerEmail,
+            phoneNumber: customerPhone,
+            note: customerNote,
+            payments: customerPayment,
+            delivery_address: customerAddress,
+        }
+        Axios.post('http://localhost:5000/order/add', order)
+            .then((res) => {
+                console.log('data: ', res.data);
+                navigate('/checkout/success', {state: order});
+            })
+            .catch(error => console.log(error));
+
+    };
 
     return (
         <div className={cx('CheckoutPage')}>
@@ -25,27 +54,37 @@ function CheckoutPage() {
                             <form>
                                 <div class="mb-3">
                                     <label for="nameInput" class="form-label">Họ và tên</label>
-                                    <input type="name" class="form-control" id="nameInput" aria-describedby="emailHelp" placeholder="Họ và tên" />
+                                    <input type="name" class="form-control" id="nameInput" aria-describedby="emailHelp" placeholder="Họ và tên" value={customerName} onChange={(e) => {
+                                        setCustomerName(e.target.value)
+                                    }} />
                                 </div>
                                 <div class="mb-3" style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <div className={cx('col')}>
                                         <label for="emailInput" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="emailInput" placeholder="Email" />
+                                        <input type="email" class="form-control" id="emailInput" placeholder="Email" value={customerEmail} onChange={(e) => {
+                                            setCustomerEmail(e.target.value)
+                                        }} />
                                     </div>
 
                                     <div className={cx('col')}>
                                         <label for="phoneInput" class="form-label">Số điện thoại</label>
-                                        <input type="text" class="form-control" id="phoneInput" placeholder="Số điện thoại" />
+                                        <input type="text" class="form-control" id="phoneInput" placeholder="Số điện thoại" value={customerPhone} onChange={(e) => {
+                                            setCustomerPhone(e.target.value)
+                                        }} />
                                     </div>
 
                                 </div>
                                 <div class="mb-3">
                                     <label for="addressInput" class="form-label">Địa chỉ</label>
-                                    <input type="text" class="form-control" id="addressInput" placeholder="Số 123, Nguyễn Minh Châu, P. Hòa Hải, Q. Ngũ Hành Sơn" />
+                                    <input type="text" class="form-control" id="addressInput" value={customerAddress} placeholder="Số 123, Nguyễn Minh Châu, P. Hòa Hải, Q. Ngũ Hành Sơn" onChange={(e) => {
+                                        setCustomerAddress(e.target.value)
+                                    }} />
                                 </div>
                                 <div class="mb-3">
                                     <label for="descTextArea" class="form-label">Chú thích</label>
-                                    <textarea row="15" class="form-control" id="descTextArea" placeholder="Ví dụ: Chuyển hàng vào giờ hành chính,..." ></textarea>
+                                    <textarea row="15" class="form-control" id="descTextArea" placeholder="Ví dụ: Chuyển hàng vào giờ hành chính,..." onChange={(e) => {
+                                        setCustomerNote(e.target.value)
+                                    }}>{customerNote}</textarea>
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1" />
@@ -69,9 +108,6 @@ function CheckoutPage() {
                                             <div className={cx('content-box-row')}>
                                                 <div className={cx('radio-wrapper')}>
                                                     <label className={cx('radio-label')} htmlFor='shipping_method__0'>
-                                                        <div className={cx('radio-input')}>
-                                                            <input id={'shipping_method__0'} className={cx('input-radio')} type="radio" name="tranfer"></input>
-                                                        </div>
                                                         <span className={cx('radio-label-primary')}>
                                                             <strong>Phí giao hàng tận nơi</strong>
                                                             <br />
@@ -93,7 +129,9 @@ function CheckoutPage() {
                                         <div className={cx('radio-wrapper', 'content-box-row')}>
                                             <lable className={cx('radio-label')} for='payment-method-bank_transfer'>
                                                 <div className={cx('radio-input', 'payment-method-checkbox')}>
-                                                    <input id="payment-method-bank_transfer" className={cx('input-radio')} name="tranfer" type="radio" value="bank_transfer" />
+                                                    <input id="payment-method-bank_transfer" className={cx('input-radio')} name="tranfer" type="radio" value="bank_transfer" checked={customerPayment === 'bank_transfer' ? true : false} onChange={(e) => {
+                                                        setCustomerPayment(e.target.value)
+                                                    }} />
                                                 </div>
                                                 <div className={cx('radio-content-input')}>
                                                     <img className={cx('main-img')} src='https://sfresh.w2.exdomain.net/catalog/view/theme/default/image/payment/bank_transfer.png' alt="" />
@@ -104,13 +142,29 @@ function CheckoutPage() {
                                                 </div>
                                             </lable>
                                         </div>
+                                        <div className={cx('radio-wrapper', 'content-box-row')}>
+                                            <lable className={cx('radio-label')} for='payment-method-bank_transfer'>
+                                                <div className={cx('radio-input', 'payment-method-checkbox')}>
+                                                    <input id="payment-method-bank_transfer" className={cx('input-radio')} name="tranfer" type="radio" value="direct_transfer" checked={customerPayment === 'direct_transfer' ? true : false} onChange={(e) => {
+                                                        setCustomerPayment(e.target.value)
+                                                    }} />
+                                                </div>
+                                                <div className={cx('radio-content-input')}>
+                                                    <img className={cx('main-img')} src='https://sfresh.w2.exdomain.net/catalog/view/theme/default/image/payment/bank_transfer.png' alt="" />
+                                                    <div>
+                                                        <span className={cx('radio-label-primary')}><strong>Thanh toán khi nhận hàng</strong></span>
+                                                        <span className={cx('quick-tagline')}>Sử dụng tiền mặt thanh toán khi nhận hàng.</span>
+                                                    </div>
+                                                </div>
+                                            </lable>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className={cx('CheckoutPage__main--content')}>
                                 <div className={cx('CheckoutPage__main--footer')}>
                                     <div className={cx('step-footer-previous-link', 'btn-step-back')} onClick={() => setIsPayment(!isPayment)}><i class="fa-solid fa-backward"></i> {" Quay lại thông tin giao hàng"} </div>
-                                    <Link to={'/checkout/success'} id="submit_form_button" type="button" className={cx('step-footer-continue-btn', 'btn')}> Đặt hàng </Link>
+                                    <Link to={''} className={cx('step-footer-continue-btn', 'btn')} onClick={() => handlerOrder()}> Đặt hàng </Link>
                                 </div>
                             </div>
                         </div>

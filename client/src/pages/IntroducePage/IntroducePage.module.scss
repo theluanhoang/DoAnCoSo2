@@ -1,0 +1,64 @@
+.bread-crumb {
+    background-image: url('https://sfresh.w2.exdomain.net/image/catalog/sfresh/breadcrumb/bg-breadcrumb.jpg');
+    padding: 15px 0;
+    margin-bottom: 30px;
+    height: 200px;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+}
+
+.bread-crumb .nd-main-title-breadcrumb {
+    color: #000;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.bread-crumb .breadcrumb {
+    color: #fff;
+    text-align: center;
+    background-color: transparent;
+    font-size: 14px;
+}
+
+.breadcrumb li {
+    display: inline-block;
+}
+
+.bread-crumb .breadcrumb a {
+    color: #000;
+}
+
+.breadcrumb li span {
+    display: inline;
+    color: #000;
+    padding: 0 2px;
+}
+
+.fa-home:before {
+    content: "\f015";
+}
+
+.breadcrumb li:after {
+    content: "/";
+    padding: 0 5px;
+    color: #000;
+}
+
+.breadcrumb li:last-child:after {
+    content: "";
+}
+
+.title-head {
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+}
+
+p {
+    margin: 0 0 15px 0;
+}

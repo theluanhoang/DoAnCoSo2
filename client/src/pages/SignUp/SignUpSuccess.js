@@ -27,7 +27,7 @@ function SignUpSuccess() {
           <p>Bây giờ bạn có thể sử dụng các quyền lợi của thành viên để tiến hành mua sắm với các tiện ích nâng cao.</p>
           <p>Nếu bạn có bất kỳ câu hỏi nào liên quan đến việc mua sắm online, vui lòng liên hệ với chủ cửa hàng.</p>
           <p>Một email xác nhận đã được gửi tới tài khoản bạn đã đăng ký, nếu không nhận được trong vòng 1 giờ, vui lòng liên hệ với chúng tôi.</p>
-          <Link to={'/sign-up/account'} className={cx('signUp__success--btn')}>
+          <Link to={'/account'} className={cx('signUp__success--btn')}>
             Tiếp tục
           </Link>
         </div>

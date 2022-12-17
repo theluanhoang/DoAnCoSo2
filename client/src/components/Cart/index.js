@@ -50,15 +50,14 @@ function Cart() {
             <>
               <ul className={cx('cart__list')}>
                 {
-                  shoppingCart.map(product => (
+                  shoppingCart.map(item => (
                     <CartProduct
-                      key={product.id}
-                      image={product.image}
-                      title={product.title}
-                      salePercent={product.salePercent}
-                      priceCurrent={product.priceCurrent}
-                      quantity={product.quantity}
-                      product={product}
+                      image={item.productImage}
+                      title={item.productTitle}
+                      salePercent={item.productSalePercent}
+                      priceCurrent={item.productPriceCurrent}
+                      quantity={item.quantity}
+                      item={item}
                     />
                   ))
                 }

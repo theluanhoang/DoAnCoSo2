@@ -6,17 +6,24 @@ import { AiOutlineHeart, AiOutlineShoppingCart, AiOutlineSearch } from 'react-ic
 import { FaUserCircle } from 'react-icons/fa'
 import { RiArrowDownSFill } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
-import { showModalCart } from '../../redux/actions'
+import { search, showModalCart } from '../../redux/actions'
 import { User } from '../../assets/img'
 import { shoppingCartState$ } from '../../redux/selectors'
 
 const cx = classNames.bind(styles)
 
 function Navbar({ currentUser }) {
+    const [query, setQuery] = React.useState('');
     const dispatch = useDispatch();
     const showModal = React.useCallback(() => {
         dispatch(showModalCart())
     }, [dispatch])
+
+    const searchHandler = (e) => {
+        setQuery(e.target.value)
+        dispatch(search.searchRequest(e.target.value));
+    }
+
 
     const shoppingCart = useSelector(shoppingCartState$)
     return (
@@ -30,7 +37,7 @@ function Navbar({ currentUser }) {
                         <Link to={'/introduce'}>Giới thiệu</Link>
                     </li>
                     <li className={cx('navbar__categories--item')}>
-                        <Link to={''}>Sản phẩm</Link>
+                        <Link to={'/products'}>Sản phẩm</Link>
                         <RiArrowDownSFill />
                     </li>
                     <li className={cx('navbar__categories--item')}>
@@ -44,10 +51,10 @@ function Navbar({ currentUser }) {
                     <img src="https://sfresh.w2.exdomain.net/image/catalog/sfresh/logo/logo.png" alt="S.Fresh" />
                 </div>
                 <div className={cx('navbar__search')}>
-                    <input type="text" placeholder="Search" />
-                    <div className={cx('navbar__searchIcon')}>
+                    <input type="text" placeholder="Search" value={query} onChange={searchHandler} />
+                    <Link to={'/search/' + query} className={cx('navbar__searchIcon')}>
                         <AiOutlineSearch className={cx('navbar__searchIcon--icon')} />
-                    </div>
+                    </Link>
                 </div>
                 <ul className={cx('navbar__icons')}>
                     <li className={cx('navbar__icons--item')}>

@@ -29,6 +29,29 @@ class QL_Product {
             callback(null, res);
         });
     }
+
+    static order(query, callback) {
+        db.query(query, (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                callback(null, err);
+                return;
+            }
+            callback(null, res);
+        });
+    }
+    
+    static getLimit(limit, callback) {
+        let query = "SELECT * FROM product LIMIT ?";
+        db.query(query, limit, (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                callback(null, err);
+                return;
+            }
+            callback(null, res);
+        });
+    }
     static getById(id, callback) {
         let query = "SELECT * FROM product WHERE id = ?";
         db.query(query, id, (err, res) => {
@@ -75,6 +98,22 @@ class QL_Product {
     static deleteProduct(id, callback) {
         let sql = "DELETE FROM product WHERE id = ?";
         db.query(sql, id, (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                callback(null, err);
+                return;
+              }
+              if (res.affectedRows === 0) {
+                callback({ kind: "not_found" }, null);
+                return;
+              }
+              callback(null, res);
+        })
+    }
+
+    static search(key, callback) {
+        let sql = `SELECT * FROM product WHERE title LIKE '%${key}%' OR category LIKE '%${key}%'`
+        db.query(sql, (err, res) => {
             if (err) {
                 console.log("error: ", err);
                 callback(null, err);

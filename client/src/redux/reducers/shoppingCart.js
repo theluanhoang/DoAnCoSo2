@@ -21,7 +21,7 @@ export default function shoppingCartReducers(state = INIT_STATE.shoppingCart, ac
         ...state,
         isLoading: false,
         data: state.data.filter((item) =>
-          item.id !== action.payload.productId
+          item.id !== action.payload.itemId
         ),
       };
     case getType(deleteShoppingCartItem.deleteShoppingCartItemFailure):

@@ -10,6 +10,18 @@ export const getProducts = createActions({
   getProductsFailure: (err) => err,
 });
 
+export const order = createActions({
+  orderRequest: (payload) => payload,
+  orderSuccess: (payload) => payload,
+  orderFailure: (err) => err,
+});
+
+export const getLimit = createActions({
+  getLimitRequest: (payload) => payload,
+  getLimitSuccess: (payload) => payload,
+  getLimitFailure: (err) => err,
+});
+
 export const getShoppingCart = createActions({
   getShoppingCartRequest: (payload) => payload,
   getShoppingCartSuccess: (payload) => payload,
@@ -68,6 +80,18 @@ export const getCustomers = createActions({
   getCustomersRequest: undefined,
   getCustomersSuccess: (payload) => payload,
   getCustomersFailure: (err) => err,
+});
+
+export const search = createActions({
+  searchRequest: (payload) => payload,
+  searchSuccess: (payload) => payload,
+  searchFailure: (err) => err,
+});
+
+export const sendFeedback = createActions({
+  sendFeedbackRequest: (payload) => payload,
+  sendFeedbackSuccess: (payload) => payload,
+  sendFeedbackFailure: (err) => err,
 });
 
 export const showModalCart = createAction('SHOW_MODAL_CART');

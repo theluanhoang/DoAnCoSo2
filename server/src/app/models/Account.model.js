@@ -1,9 +1,12 @@
 const db = require('../../config/db')
 
 const jwt = require("jsonwebtoken")
+const { v4: uuidv4 } = require('uuid');
+
 
 class Account {
     constructor(account) {
+        this.id = uuidv4();
         this.name = account.name
         this.address = account.address
         this.phoneNumber = account.phoneNumber
@@ -72,9 +75,7 @@ class QL_Account {
     }
 
     static signIn(account, callback) {
-        console.log('account password: ', account.password);
         let password = encrypt(account.password)
-        console.log('password: ', password);
 
         db.query("SELECT * FROM account WHERE email = ? AND password = ?", [account.email, password], (err, data) => {
             if (err) {

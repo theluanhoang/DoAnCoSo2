@@ -34,14 +34,15 @@ function FormSignUp() {
             <h1 className={cx('form__title')}>ĐĂNG KÝ</h1>
             <div className={cx('form__line')}></div>
             <form method="post" action="">
-                <input type='text' placeholder="Họ và tên" onChange={(e) => setName(e.target.value)} required={true}/>
-                <input type='text' placeholder="Địa chỉ" onChange={(e) => setAddress(e.target.value)} required={true}/>
-                <input type='text' placeholder="Số điện thoại" onChange={(e) => setPhoneNumber(e.target.value)} required={true}/>
-                <input type='email' placeholder="Email" onChange={(e) => setEmail(e.target.value)} required={true}/>
-                <input type='password' placeholder="Mật khẩu" onChange={(e) => setPassword(e.target.value)} required={true}/>
+                <input type='text' placeholder="Họ và tên" onChange={(e) => setName(e.target.value)} required={true} />
+                <input type='text' placeholder="Địa chỉ" onChange={(e) => setAddress(e.target.value)} required={true} />
+                <input type='text' placeholder="Số điện thoại" onChange={(e) => setPhoneNumber(e.target.value)} required={true} />
+                <input type='email' placeholder="Email" onChange={(e) => setEmail(e.target.value)} required={true} />
+                <input type='password' placeholder="Mật khẩu" onChange={(e) => setPassword(e.target.value)} required={true} />
                 <div onClick={submitSignup} className={cx('form__btn')}>Đăng ký</div>
             </form>
-        </div>)
+        </div>
+    )
 }
 
 export default FormSignUp

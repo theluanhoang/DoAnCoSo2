@@ -40,7 +40,7 @@ function UserPage() {
                 <AppTitle title={'Danh sách khách hàng'} />
             </div>
             <div className={cx('userPage__wrapper')}>
-                <Functions />
+                <Functions data={customers}/>
                 <div className={cx('userPage__table')}>
                     <div className={cx('productPage__dataTable--header')}>
                         <ul>
