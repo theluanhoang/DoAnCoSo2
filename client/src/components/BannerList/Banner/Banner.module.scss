@@ -70,3 +70,20 @@
     border-top-right-radius: 100rem;
     cursor: pointer;
 }
+
+@media (max-width: 1023px) {
+    
+  }
+  
+  @media (min-width: 740px) and (max-width: 1023px) {
+    .banner__categories,
+    .right {
+        img {
+            width: 220px;
+            height: 296px;
+        }
+    }
+  }
+  
+  @media (max-width: 739px) {
+  }
