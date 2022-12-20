@@ -49,5 +49,9 @@ export const INIT_STATE = {
     order: { 
         isLoading: false,
         data: [],
+    },
+    comments: {
+        isLoading: false,
+        data: []
     }
 }

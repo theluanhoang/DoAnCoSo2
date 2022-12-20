@@ -24,7 +24,7 @@ function HomePage() {
   const dispatch = useDispatch();
   const products = useSelector(productsState$);
   const { isShowModalCart } = useSelector(modalCartState$);
-  const currentUser = useSelector(loginState$);
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   const [slide, setSlide] = React.useState(0);
   const [slide2, setSlide2] = React.useState(0);
   const [length, setLength] = React.useState(products.length);

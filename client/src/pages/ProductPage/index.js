@@ -5,14 +5,19 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { Link, useParams } from 'react-router-dom';
 import { IoIosArrowUp, IoIosArrowDown } from 'react-icons/io';
-import Product from '../../components/ProductList/Product';
 import { products } from '../../products';
 import Note from '../../components/Note';
 import Axios from 'axios';
 import ReactHtmlParser from 'react-html-parser';
 import ProductList from '../../components/ProductList';
-
+import { useSelector } from 'react-redux';
+import { loginState$ } from '../../redux/selectors';
+import io from "socket.io-client";
+import Vector from '../../assets/img/Vector.png';
+import Send from '../../assets/img/Send.png';
 const cx = classNames.bind(styles);
+
+let socket;
 
 function ProductPage() {
 
@@ -37,7 +42,8 @@ function ProductPage() {
       setSlide(prev => prev - 1);
     }
   }
-
+  const currentUser = JSON.parse(localStorage.getItem('user'));
+  const ENDPOINT = "http://localhost:5000";
   const [idProduct, setIdProduct] = React.useState();
   const [image, setImage] = React.useState();
   const [priceCurrent, setPriceCurrent] = React.useState();
@@ -46,6 +52,8 @@ function ProductPage() {
   const [description, setDescription] = React.useState();
   const [salePercent, setSalePercent] = React.useState();
   const [qty, setQty] = React.useState();
+  const [messages, setMessages] = React.useState([]);
+  const [message, setMessage] = React.useState('');
 
   const setData = (product) => {
     setIdProduct(product.id);
@@ -56,13 +64,34 @@ function ProductPage() {
     setSalePercent(product.salePercent);
     setQty(product.qty);
   }
-
+  React.useEffect(() => {
+    socket = io(ENDPOINT);
+    socket.emit("join", { id, currentUser }, (error) => {
+      if (error) alert(error);
+    });
+  }, [id]);
   React.useEffect(() => {
     Axios.get('http://localhost:5000/products/' + id).then((res) => {
       setData(res.data[0])
-      console.log(res.data);
     })
   }, [id]);
+  React.useEffect(() => {
+    Axios.get('http://localhost:5000/comments/' + id).then((res) => {
+      setMessages(res.data);
+    })
+  }, [id])
+
+  React.useEffect(() => {
+    socket.on("message", (message) => {
+      setMessages((messages) => [...messages, message]);
+    });
+  }, []);
+  const handleSubmit = () => {
+    if (message) {
+      socket.emit("sendMessage", { message });
+      setMessage("");
+    } else alert("empty input");
+  };
 
   return (
     <div className={cx('ProductPage')}>
@@ -175,6 +204,50 @@ function ProductPage() {
                 {ReactHtmlParser(description)}
               </div>
             </div>
+            <br />
+
+            <div className={cx("manageCustomers__information")}>
+              <div className={cx("manageCustomers__information--title")}>
+                <h4 className={cx("title--block")}>Comment (30)</h4>
+              </div>
+              <div className={cx("manageCustomers__comment")} style={{ height: '313px' }}>
+                <ul className={cx("manageCustomers__comments")}>
+                  {
+                    messages.map((val, i) => (
+                      <li key={i}>
+                        <Link className={cx("manageCustomers__comments--media")}>
+                          <img className={cx("avatar")} src={'https://i.pinimg.com/564x/02/72/35/02723528ae01d17bbf67ccf6b8da8a6b.jpg'} alt='' />
+                        </Link>
+                        <div className={cx("manageCustomers__comments--content")}>
+                          <div className={cx("manageCustomers__comments--top")}>
+                            <Link className={cx("manageCustomers__comments--name")}>
+                              {val.name}
+                            </Link>
+                            <p className={cx("day")}>16:28 13/06/2022</p>
+                          </div>
+                          <p className={cx("comment")}>
+                            {val.message}
+                          </p>
+                        </div>
+                      </li>
+                    ))
+                  }
+
+                </ul>
+              </div>
+              <div className={cx("manageCustomers__input")}>
+                <input type="file" id="file" hidden />
+                <div className={cx("icon--input")}>
+                  <img src={Vector} alt='' />
+                </div>
+                <input type="text" placeholder="Nhập bình luận của bạn..." value={message}
+                  onChange={(e) => setMessage(e.target.value)} />
+                <div id="btn--post-comment" onClick={() => handleSubmit()}>
+                  <img src={Send} alt='' />
+                </div>
+              </div>
+            </div>
+            <br />
             <div className={cx('RelatedProducts')}>
               <div className={cx('RelatedProducts__wrapper')}>
                 <div className={cx('RelatedProducts__title')}>

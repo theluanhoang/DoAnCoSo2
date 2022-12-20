@@ -12,9 +12,9 @@ import { shoppingCartState$ } from '../../redux/selectors'
 
 const cx = classNames.bind(styles)
 
-function Navbar({ currentUser }) {
-    const [query, setQuery] = React.useState('');
+function Navbar() {
     const dispatch = useDispatch();
+    const [query, setQuery] = React.useState('');
     const showModal = React.useCallback(() => {
         dispatch(showModalCart())
     }, [dispatch])
@@ -24,7 +24,7 @@ function Navbar({ currentUser }) {
         dispatch(search.searchRequest(e.target.value));
     }
 
-
+    const currentUser = localStorage.getItem('user');
     const shoppingCart = useSelector(shoppingCartState$)
     return (
         <div className={cx('navbar')}>
@@ -99,7 +99,10 @@ function Navbar({ currentUser }) {
                                             </Link>
                                         </li>
                                         <li className={cx('navbar__icons--sign')}>
-                                            <Link to=''>
+                                            <Link to='' onClick={() => {
+                                                localStorage.removeItem('user');
+                                                window.location.href = 'http://localhost:3000/sign-in'
+                                            }}>
                                                 Đăng xuất
                                             </Link>
                                         </li>

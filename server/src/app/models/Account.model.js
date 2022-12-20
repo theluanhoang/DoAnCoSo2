@@ -20,14 +20,14 @@ class QL_Account {
     // GENERATE ACCESS TOKEN FOR
     static generateAccessToken(account) {
         return jwt.sign({
-            id: account.id,
+            id: account.id || '',
             admin: account.admin
         },
             process.env.JWT_ACCESS_KEY,
-            { expiresIn: "30s" }
+            { expiresIn: "365d" }
         );
     }
-    
+
     // GENERATE REFRESH TOKEN FOR
     static generateRefreshToken(account) {
         return jwt.sign({
@@ -75,20 +75,24 @@ class QL_Account {
     }
 
     static signIn(account, callback) {
-        let password = encrypt(account.password)
+        try {
+            let password = encrypt(account.password)
 
-        db.query("SELECT * FROM account WHERE email = ? AND password = ?", [account.email, password], (err, data) => {
-            if (err) {
-                callback(err, null);
-            }
-            if (data) {
-                let user = data[0]
-                const accessToken = this.generateAccessToken(user)
-                const refreshToken = this.generateRefreshToken(user)
-                const { password, ...others } = user;
-                callback(null, { ...others , accessToken, refreshToken })
-            }
-        });
+            db.query("SELECT * FROM account WHERE email = ? AND password = ?", [account.email, password], (err, data) => {
+                if (err) {
+                    callback(err, null);
+                }
+                if (data) {
+                    let user = data[0]
+                    const accessToken = this.generateAccessToken(user)
+                    const refreshToken = this.generateRefreshToken(user)
+                    const { password, ...others } = user;
+                    callback(null, { ...others, accessToken, refreshToken })
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     static handleRefresh(refreshToken, array, callback) {
@@ -100,7 +104,7 @@ class QL_Account {
             const newAccessToken = this.generateAccessToken(account);
             const newRefreshToken = this.generateRefreshToken(account);
             array.push(newRefreshToken);
-            callback(null, {newAccessToken, newRefreshToken, array})
+            callback(null, { newAccessToken, newRefreshToken, array })
         })
     }
 

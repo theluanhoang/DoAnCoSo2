@@ -27,6 +27,7 @@
     "nodemon": "^2.0.20",
     "reverse-md5": "^0.0.5",
     "sequelize-mysql-timestamp": "^1.4.0",
+    "socket.io": "^4.5.4",
     "uuid": "^9.0.0"
   }
 }

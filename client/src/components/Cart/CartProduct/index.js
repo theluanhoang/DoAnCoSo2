@@ -10,7 +10,7 @@ import { deleteShoppingCartItem, updateShoppingCartItem } from '../../../redux/a
 const cx = classNames.bind(styles)
 
 function CartProduct({ image, title, priceCurrent, salePercent, item, quantity }) {
-    console.log(image);
+    const currentUser = JSON.parse(localStorage.getItem('user'));
     const [qty, setQty] = React.useState(quantity);
 
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function CartProduct({ image, title, priceCurrent, salePercent, item, quantity }
         dispatch(deleteShoppingCartItem.deleteShoppingCartItemRequest(
             {
                 itemId: item.id,
-                customerId: '21'
+                customerId: currentUser.id
             }
         ));
     }
@@ -37,7 +37,7 @@ function CartProduct({ image, title, priceCurrent, salePercent, item, quantity }
         if (qty > 1) {
             dispatch(updateShoppingCartItem.updateShoppingCartItemRequest({
                 itemId: item.id,
-                customerId: "21",
+                customerId: currentUser.id,
                 quantity: qty - 1
             }))
             setQty(pre => pre - 1);
@@ -47,7 +47,7 @@ function CartProduct({ image, title, priceCurrent, salePercent, item, quantity }
     const qtyIncrease = () => {
         dispatch(updateShoppingCartItem.updateShoppingCartItemRequest({
             itemId: item.id,
-            customerId: "21",
+            customerId: currentUser.id,
             quantity: qty + 1
         }))
         setQty(pre => pre + 1);

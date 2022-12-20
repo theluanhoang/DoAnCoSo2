@@ -14,7 +14,7 @@ const cx = classNames.bind(styles)
 
 function CheckoutPage() {
     const navigate = useNavigate();
-    const currentUser = useSelector(loginState$);
+    const currentUser = JSON.parse(localStorage.getItem('user'));
     const [isPayment, setIsPayment] = React.useState(false);
     const shoppingCart = useSelector(shoppingCartState$);
     const [customerName, setCustomerName] = React.useState('');

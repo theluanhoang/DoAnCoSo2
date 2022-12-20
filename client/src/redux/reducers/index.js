@@ -10,8 +10,11 @@ import login from './login';
 import feedbacks from './feedbacks';
 import search from './search';
 import order from './order';
+import comments from './comments';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
 
-export default combineReducers({
+const reducers = combineReducers({
     modalCart,
     modalAdmin,
     distributors,
@@ -22,5 +25,15 @@ export default combineReducers({
     shoppingCart,
     feedbacks,
     search,
-    order
+    order,
+    comments
 });
+
+const persistConfig = {
+    key: 'root',
+    storage: storage,
+};
+
+export default persistReducer(persistConfig, reducers);
+
+

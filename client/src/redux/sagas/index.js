@@ -124,6 +124,7 @@ function* searchProductSaga(action) {
 function* login(action) {
   try {
     const user = yield call(api.loginUser, action.payload);
+    localStorage.setItem('user', user.data);
     yield put(actions.loginAccount.loginSuccess(user.data));
   } catch (err) {
     console.error(err); 

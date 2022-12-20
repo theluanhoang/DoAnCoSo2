@@ -4,7 +4,7 @@ import classNames from 'classnames/bind'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import Note from '../../components/Note'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Product from '../../components/ProductList/Product'
 import { useSelector } from 'react-redux'
 import { searchState$, keyState$ } from '../../redux/selectors'
@@ -12,7 +12,6 @@ const cx = classNames.bind(styles)
 
 function Search() {
 
-    const { key } = useParams();
     const products = useSelector(searchState$);
     const keyword = useSelector(keyState$);
 

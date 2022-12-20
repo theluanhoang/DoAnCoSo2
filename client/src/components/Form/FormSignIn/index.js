@@ -3,9 +3,9 @@ import styles from '../FormSignUp/FormSignUp.module.scss'
 import classNames from 'classnames/bind'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginAccount } from '../../../redux/actions'
+import Axios from 'axios'
 
 import { Link, useNavigate } from 'react-router-dom'
-import { notificationSuccess } from '../../../notification'
 
 const cx = classNames.bind(styles)
 
@@ -19,8 +19,14 @@ function FormSignIn() {
             email: email,
             password: password,
         }
-        dispatch(loginAccount.loginStart(newAccount));
-        navigate('/', {state: notificationSuccess});
+        Axios.post('http://localhost:5000/accounts/login', newAccount).then((res) => {
+            localStorage.setItem('user', JSON.stringify(res.data));
+            navigate('/');
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        // dispatch(loginAccount.loginStart(newAccount));
     }
     return (
         <div className={cx('form')}>

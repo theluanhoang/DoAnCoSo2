@@ -9,6 +9,7 @@ import { sendFeedback } from '../../redux/actions'
 const cx = classNames.bind(styles)
 
 function ContactPage() {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
     const [content, setContent] = React.useState('');
     const [name, setName] = React.useState('');
     const [phone, setPhone] = React.useState('');
@@ -17,7 +18,7 @@ function ContactPage() {
     const dispatch = useDispatch();
     const handleSubmit = () => {
         let feedback = {
-            userId: "21",
+            userId: currentUser.id,
             content: content
         }
         dispatch(sendFeedback.sendFeedbackRequest(feedback));

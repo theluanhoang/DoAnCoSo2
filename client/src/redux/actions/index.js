@@ -87,6 +87,11 @@ export const search = createActions({
   searchSuccess: (payload) => payload,
   searchFailure: (err) => err,
 });
+export const comments = createActions({
+  commentsRequest: (payload) => payload,
+  commentsSuccess: (payload) => payload,
+  commentsFailure: (err) => err,
+});
 
 export const sendFeedback = createActions({
   sendFeedbackRequest: (payload) => payload,

@@ -32,7 +32,11 @@ function AddProduct() {
       const parameters = {
         supplier: data
       }
-      Axios.post('http://localhost:5000/distributors/add', parameters)
+      Axios.post('http://localhost:5000/distributors/add', parameters, {
+        headers: {
+          header1: `Bearer $`,
+        }
+      })
         .then(function (response) {
           console.log(response);
         })

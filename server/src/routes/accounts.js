@@ -5,11 +5,11 @@ const { verifyToken, verifyTokenAndAdmin } = require('../app/controllers/verifyT
 
 router.post('/sign-up', AccountControllers.create);
 router.post('/login', AccountControllers.login);
-router.get('/', verifyToken, AccountControllers.index);
-router.get('/:id', verifyToken, AccountControllers.getAccount);
-router.get('/delete/:id', verifyTokenAndAdmin, AccountControllers.delete);
-router.post('/update/:id', verifyTokenAndAdmin, AccountControllers.update);
+router.get('/', AccountControllers.index);
+router.get('/:id', AccountControllers.getAccount);
+router.get('/delete/:id', AccountControllers.delete);
+router.post('/update/:id', AccountControllers.update);
 router.post('/refresh', AccountControllers.requestRefreshToken);
-router.post('/logout', verifyToken, AccountControllers.logout);
+router.post('/logout', AccountControllers.logout);
 
 module.exports = router

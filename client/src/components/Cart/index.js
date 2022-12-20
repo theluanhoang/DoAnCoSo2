@@ -13,6 +13,7 @@ const cx = classNames.bind(styles)
 
 function Cart() {
   const dispatch = useDispatch();
+  const currentUser = JSON.parse(localStorage.getItem('user'))
   const hideModal = React.useCallback(() => {
     dispatch(hideModalCart())
   }, [dispatch])
@@ -20,7 +21,7 @@ function Cart() {
 
   
   React.useEffect(() => {
-    dispatch(getShoppingCart.getShoppingCartRequest({ userId: "21"}));
+    dispatch(getShoppingCart.getShoppingCartRequest({ userId: currentUser.id}));
   }, [dispatch])
 
   const shoppingCart = useSelector(shoppingCartState$);
