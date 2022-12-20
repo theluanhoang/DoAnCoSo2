@@ -13,6 +13,7 @@ function Product({ image, setting, title, priceCurrent, salePercent, border, pro
     const [obj, setObj] = React.useState({});
     id = product ? product.id : ''
     let priceSale, priceOld;
+    const currentUser = JSON.parse(localStorage.getItem('user'))
 
     let productItem = React.useRef();
     productItem.current = product;
@@ -43,7 +44,7 @@ function Product({ image, setting, title, priceCurrent, salePercent, border, pro
     }
     const addToCart = () => {
         const item = {
-            customerId: '21',
+            customerId: currentUser.id,
             productTitle:  product.title,
             productPriceCurrent: product.priceCurrent, 
             productPriceCost: product.priceCost, 

@@ -4,11 +4,18 @@ import classNames from 'classnames/bind'
 import AppTitle from '../../../components/admin/AppTitle'
 import Functions from '../../../components/admin/Functions'
 import { Link } from 'react-router-dom'
+import Axios from 'axios'
 
 const cx = classNames.bind(styles)
 
-
 function Order() {
+  const [orders, setOrders] = React.useState([]);
+  React.useEffect(() => {
+    Axios.get('http://localhost:5000/order').then((response) => {
+      setOrders(response.data); //
+      console.log(response.data);
+    })
+  }, [])
   return (
     <div className={cx('orderPage')}>
       <div className={cx('orderPage__block')}>
@@ -69,7 +76,20 @@ function Order() {
                   <td width="10" className={cx("sorting_1")}><input type="checkbox" name="check1" value="1" /></td>
                   <td>123456</td>
                   <td>Hoàng Thế Luân</td>
-                  <td>Bàn gỗ Theresa</td>
+                  <td>Ổi lê ruột đỏ</td>
+                  <td>2</td>
+                  <td>9400000</td>
+                  <td>Hoàn thành</td>
+                  <td>
+                    <Link to={'/admin/orders/'} className={cx("btn", "btn-primary", "btn-sm", "trash")}  title="Xóa"><i class="fas fa-trash-alt"></i></Link>
+                    <Link to={'/admin/orders/'} className={cx("btn", "btn-primary", "btn-sm", "edit")} ><i class="fas fa-edit"></i></Link>
+                  </td>
+                </tr>
+                <tr role="row" className={cx("odd")}>
+                  <td width="10" className={cx("sorting_1")}><input type="checkbox" name="check1" value="1" /></td>
+                  <td>123456</td>
+                  <td>Hoàng Thế Luân</td>
+                  <td>Ớt chuông xanh</td>
                   <td>2</td>
                   <td>9400000</td>
                   <td>Hoàn thành</td>

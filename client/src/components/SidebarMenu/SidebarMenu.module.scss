@@ -1,0 +1,54 @@
+.wrapper {
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0 !important;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  transform: translateX(-100%);
+
+  &.active {
+    transform: translateX(0);
+  }
+}
+
+.inner {
+  background-color: #fff;
+  height: 100vh;
+  position: fixed;
+  top: 0 !important;
+  left: 0;
+  bottom: 0;
+  z-index: 99999;
+  width: 330px;
+
+  .header__signin {
+    border-right: 1px solid #fff;
+  }
+
+  .header__signin,
+  .header__signup {
+    background: #3ba66b;
+    margin-bottom: 0;
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+    padding: 20px 5px;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .menu__list {
+    padding: 0;
+    margin-top: 12px;
+    .menu__item a {
+      padding: 0 10px !important;
+      color: #333;
+      height: unset;
+      line-height: 35px;
+    }
+  }
+}

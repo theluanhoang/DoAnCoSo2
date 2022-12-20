@@ -168,12 +168,12 @@ function HomePage() {
       <ul className={cx('banner')}>
         <li className={cx('banner__item')}>
           <Link to={'/'}>
-            <img src={Banner1} alt='' />
+            <img src={Banner1} alt='' className={cx('banner__item--img')}/>
           </Link>
         </li>
         <li className={cx('banner__item')}>
           <Link to={'/'}>
-            <img src={Banner2} alt='' />
+            <img src={Banner2} alt='' className={cx('banner__item--img')}/>
           </Link>
         </li>
       </ul>

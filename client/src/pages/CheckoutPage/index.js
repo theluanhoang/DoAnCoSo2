@@ -17,12 +17,13 @@ function CheckoutPage() {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const [isPayment, setIsPayment] = React.useState(false);
     const shoppingCart = useSelector(shoppingCartState$);
-    const [customerName, setCustomerName] = React.useState('');
-    const [customerEmail, setCustomerEmail] = React.useState('');
-    const [customerPhone, setCustomerPhone] = React.useState('');
+    const [customerName, setCustomerName] = React.useState(currentUser.name);
+    const [customerEmail, setCustomerEmail] = React.useState(currentUser.email);
+    const [customerPhone, setCustomerPhone] = React.useState(currentUser.phoneNumber);
     const [customerAddress, setCustomerAddress] = React.useState('');
     const [customerNote, setCustomerNote] = React.useState('');
     const [customerPayment, setCustomerPayment] = React.useState('');
+    console.log('shoppingCart: ', shoppingCart);
 
     const handlerOrder = () => {
         const order = {
@@ -36,11 +37,9 @@ function CheckoutPage() {
         }
         Axios.post('http://localhost:5000/order/add', order)
             .then((res) => {
-                console.log('data: ', res.data);
                 navigate('/checkout/success', {state: order});
             })
             .catch(error => console.log(error));
-
     };
 
     return (
