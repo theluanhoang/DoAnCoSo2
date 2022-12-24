@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.rcw-conversation-container > .rcw-header {
+  background-color: #3BA66B;
+}

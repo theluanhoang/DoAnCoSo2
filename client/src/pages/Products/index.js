@@ -9,29 +9,45 @@ import { useDispatch, useSelector } from 'react-redux'
 import { productsState$ } from '../../redux/selectors'
 import Product from '../../components/ProductList/Product'
 import Axios from 'axios'
-import { getDistributors, getProducts } from '../../redux/actions'
+import { getProducts } from '../../redux/actions'
 
 const cx = classNames.bind(styles)
 
 let arr = []
+let query = '';
 
 function Products() {
     const dispatch = useDispatch();
     const [active, setActive] = React.useState('');
+    const [orderBy, setOrderBy] = React.useState('');
     const [price, setPrice] = React.useState('');
     const [categories, setCategories] = React.useState([]);
+    const [orderProducts, setOrderProducts] = React.useState([]);
     const [distributors, setDistributors] = React.useState([]);
     const [distributor, setDistributor] = React.useState('');
     const order = [
-        "Mặc định",
-        "Tên (A - Z)",
-        "Tên (Z - A)",
-        "Giá (Thấp > Cao)",
-        "Giá (Cao > Thấp)",
-        "Dòng sản phẩm (A - Z)",
-        "Dòng sản phẩm (Z - A)"
+        {
+            name: "Mặc định",
+            query: "",
+        },
+        {
+            name: "Tên (A - Z)",
+            query: " ORDER BY title DESC",
+        },
+        {
+            name: "Tên (Z - A)",
+            query: " ORDER BY title ASC",
+        },
+        {
+            name: "Giá (Thấp > Cao)",
+            query: " ORDER BY priceCurrent DESC",
+        },
+        {
+            name: "Giá (Cao > Thấp)",
+            query: " ORDER BY priceCurrent ASC",
+        }
     ]
-    const products = useSelector(productsState$);
+    let products = useSelector(productsState$);
     React.useEffect(() => {
         dispatch(getProducts.getProductsRequest());
 
@@ -51,8 +67,18 @@ function Products() {
             })
     }, [dispatch])
 
-
-    arr = distributors.filter(distributor => distributor.supplier !== '');
+    React.useEffect(() => {
+        query = 'SELECT * FROM product' + price + orderBy;
+        Axios.post('http://localhost:5000/products/order/', {
+            query: query
+        })
+            .then((response) => {
+                setOrderProducts(response.data)
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [orderBy, price])
 
     return (
         <div className={cx('products')}>
@@ -101,7 +127,7 @@ function Products() {
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-1'>
-                                                                <input type='radio' name='price' id='filter-price-1' value='priceCurrent < 100000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-1' value=' WHERE priceCurrent < 100000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
                                                                 {" Giá dưới 100.000đ "}
                                                             </label>
@@ -110,7 +136,7 @@ function Products() {
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-2'>
-                                                                <input type='radio' name='price' id='filter-price-2' value='priceCurrent BETWEEN 100000 AND 200000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-2' value=' WHERE priceCurrent BETWEEN 100000 AND 200000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
                                                                 {" Giá 100.000đ - 200.000đ "}
                                                             </label>
@@ -119,7 +145,7 @@ function Products() {
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-3'>
-                                                                <input type='radio' name='price' id='filter-price-3' value='priceCurrent BETWEEN 200000 AND 300000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-3' value=' WHERE priceCurrent BETWEEN 200000 AND 300000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
                                                                 {" Giá 200.000đ - 300.000đ "}
                                                             </label>
@@ -128,16 +154,16 @@ function Products() {
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-4'>
-                                                                <input type='radio' name='price' id='filter-price-4' value='priceCurrent BETWEEN 300000 AND 500000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-4' value=' WHERE priceCurrent BETWEEN 300000 AND 500000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
-                                                                {" Giá 300.000đ - 500.000đ " }
+                                                                {" Giá 300.000đ - 500.000đ "}
                                                             </label>
                                                         </span>
                                                     </li>
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-5'>
-                                                                <input type='radio' name='price' id='filter-price-5' value='priceCurrent BETWEEN 500000 AND 1000000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-5' value=' WHERE priceCurrent BETWEEN 500000 AND 1000000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
                                                                 {" Giá 500.000đ - 1.000.000đ "}
                                                             </label>
@@ -146,7 +172,7 @@ function Products() {
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-6'>
-                                                                <input type='radio' name='price' id='filter-price-6' value='priceCurrent BETWEEN 1000000 AND 2000000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-6' value=' WHERE priceCurrent BETWEEN 1000000 AND 2000000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
                                                                 {" Giá 1.000.000đ - 2.000.000đ "}
                                                             </label>
@@ -155,7 +181,7 @@ function Products() {
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-7'>
-                                                                <input type='radio' name='price' id='filter-price-7' value='priceCurrent BETWEEN 2000000 AND 3000000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-7' value=' WHERE priceCurrent BETWEEN 2000000 AND 3000000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
                                                                 {" Giá 2.000.000đ - 3.000.000đ "}
                                                             </label>
@@ -164,7 +190,7 @@ function Products() {
                                                     <li className={cx('filter-item', 'filter-item--check-box', 'filter-item--green')}>
                                                         <span>
                                                             <label for='filter-price-8'>
-                                                                <input type='radio' name='price' id='filter-price-8' value='priceCurrent > 3000000' onChange={(e) => setPrice(e.target.value)}/>
+                                                                <input type='radio' name='price' id='filter-price-8' value=' WHERE priceCurrent > 3000000' onChange={(e) => setPrice(e.target.value)} />
                                                                 <i className={cx('fa')}></i>
                                                                 {" Giá trên 3.000.000đ "}
                                                             </label>
@@ -295,8 +321,11 @@ function Products() {
                                 <ul>
                                     {
                                         order.map(item => (
-                                            <li className={cx('btn-quick-sort', active === item ? 'active' : '')} onClick={() => setActive(item)}>
-                                                <Link ><i class="fa-regular fa-circle"></i>{item}</Link>
+                                            <li className={cx('btn-quick-sort', active === item.name ? 'active' : '')} onClick={() => {
+                                                setActive(item.name);
+                                                setOrderBy(item.query);
+                                            }}>
+                                                <Link ><i class="fa-regular fa-circle"></i>{item.name}</Link>
                                             </li>
                                         ))
                                     }
@@ -305,7 +334,18 @@ function Products() {
                         </div>
                         <div className={cx('products__main--list')}>
                             {
-                                products.map(product => (
+                                orderProducts.length > 0 ? orderProducts.map(product => (
+                                    <Product
+                                        key={product.id}
+                                        settings={product.setting}
+                                        title={product.title}
+                                        priceCurrent={product.priceCurrent}
+                                        salePercent={product.salePercent}
+                                        image={product.image}
+                                        product={product}
+                                        border={true}
+                                    />
+                                )) : products.map(product => (
                                     <Product
                                         key={product.id}
                                         settings={product.setting}
@@ -317,6 +357,7 @@ function Products() {
                                         border={true}
                                     />
                                 ))
+
                             }
                         </div>
                     </div>

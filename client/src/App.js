@@ -14,21 +14,42 @@ import CheckoutPageSuccess from './pages/CheckoutPage/CheckoutSuccess';
 import IntroducePage from './pages/IntroducePage';
 import ContactPage from './pages/ContactPage';
 import Products from './pages/Products';
+import { Widget, addResponseMessage } from 'react-chat-widget';
+import React from 'react'
+import './index.css';
+
+import 'react-chat-widget/lib/styles.css';
 
 function App() {
+  React.useEffect(() => {
+    addResponseMessage('Welcome to fresh food chat!');
+  }, []);
 
+  const handleNewUserMessage = (newMessage) => {
+    addResponseMessage(`${newMessage}`);
+  };
   return (
     <div>
+      <Widget
+        style={{ backgroundColor: '#3BA66B' }}
+        title="FRESH FOOD"
+        subtitle="Asistant for you!"
+        handleNewUserMessage={handleNewUserMessage}
+        emojis={true}
+        showBadge={true}
+        titleAvatar={'https://sfresh.w2.exdomain.net/image/catalog/sfresh/logo/logo.png'}
+        profileAvatar={'https://previews.123rf.com/images/mialima/mialima1602/mialima160200052/52409003-call-center-operator-avatar-woman-with-a-headset-customer-support-client-services-and-communication-.jpg'}
+         />
       <Routes history={history}>
         <Route path='/' element={<HomePage />} />
-        <Route path='/admin' element={<AdminPanel components={'dashboard'}/>} />
-        <Route path='/admin/orders' element={<AdminPanel components={'orders'}/>} />
-        <Route path='/admin/customers' element={<AdminPanel components={'customers'}/>} />
-        <Route path='/admin/customers/:id' element={<AdminPanel components={'customers'}/>} />
-        <Route path='/admin/products' element={<AdminPanel components={'products'}/>} />
-        <Route path='/admin/products/:id' element={<AdminPanel components={'products'}/>} />
-        <Route path='/admin/add-product' element={<AdminPanel components={'addProduct'}/>} />
-        <Route path='/admin/products/update-product/:id' element={<AdminPanel components={'updateProduct'}/>} />
+        <Route path='/admin' element={<AdminPanel components={'dashboard'} />} />
+        <Route path='/admin/orders' element={<AdminPanel components={'orders'} />} />
+        <Route path='/admin/customers' element={<AdminPanel components={'customers'} />} />
+        <Route path='/admin/customers/:id' element={<AdminPanel components={'customers'} />} />
+        <Route path='/admin/products' element={<AdminPanel components={'products'} />} />
+        <Route path='/admin/products/:id' element={<AdminPanel components={'products'} />} />
+        <Route path='/admin/add-product' element={<AdminPanel components={'addProduct'} />} />
+        <Route path='/admin/products/update-product/:id' element={<AdminPanel components={'updateProduct'} />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/sign-up/success' element={<SignUpSuccess />} />
@@ -43,11 +64,11 @@ function App() {
         <Route path='/product/:id' element={<ProductPage />} />
         <Route path='/news' element={<News />} />
         <Route path='/search/:key' element={<Search />} />
-        <Route path='/checkout/checkout/' element={<CheckoutPage />}/>
-        <Route path='/checkout/success/' element={<CheckoutPageSuccess />}/>
-        <Route path='/introduce/' element={<IntroducePage />}/>
-        <Route path='/contact/' element={<ContactPage />}/>
-        <Route path='/products/' element={<Products />}/>
+        <Route path='/checkout/checkout/' element={<CheckoutPage />} />
+        <Route path='/checkout/success/' element={<CheckoutPageSuccess />} />
+        <Route path='/introduce/' element={<IntroducePage />} />
+        <Route path='/contact/' element={<ContactPage />} />
+        <Route path='/products/' element={<Products />} />
       </Routes>
     </div>
   );

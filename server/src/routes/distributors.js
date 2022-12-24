@@ -3,7 +3,7 @@ const router = express.Router()
 const DistributorControllers = require('../app/controllers/Distributor.controller');
 const { verifyTokenAndAdmin } = require('../app/controllers/verifyToken.controller');
 
-router.post('/add', verifyTokenAndAdmin, DistributorControllers.create);
+router.post('/add', DistributorControllers.create);
 router.get('/', DistributorControllers.index);
 router.get('/:id', DistributorControllers.getDistributor);
 
