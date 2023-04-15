@@ -7,9 +7,9 @@ import Section from '../../components/Section'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { productsState$ } from '../../redux/selectors'
-import Product from '../../components/ProductList/Product'
 import Axios from 'axios'
 import { getProducts } from '../../redux/actions'
+import Product from '../../components/Product'
 
 const cx = classNames.bind(styles)
 

@@ -9,12 +9,10 @@ import { products } from '../../products';
 import Note from '../../components/Note';
 import Axios from 'axios';
 import ReactHtmlParser from 'react-html-parser';
-import ProductList from '../../components/ProductList';
-import { useSelector } from 'react-redux';
-import { loginState$ } from '../../redux/selectors';
 import io from "socket.io-client";
 import Vector from '../../assets/img/Vector.png';
 import Send from '../../assets/img/Send.png';
+import Product from '../../components/Product';
 const cx = classNames.bind(styles);
 
 let socket;
@@ -254,7 +252,22 @@ function ProductPage() {
                   <Link title='Sản phẩm liên quan' to={''}>Sản phẩm liên quan</Link>
                 </div>
                 <div className={cx('RelatedProducts__list')} style={{ marginLeft: '-30px' }}>
-                  <ProductList />
+                  <ul className={cx('productList')}>
+                    {
+                      products.map((product) => (
+                        <Product
+                          key={product.id}
+                          settings={product.setting}
+                          title={product.title}
+                          priceCurrent={product.priceCurrent}
+                          salePercent={product.salePercent}
+                          image={product.image}
+                          product={product}
+                          border={true}
+                        />
+                      ))
+                    }
+                  </ul>
                 </div>
               </div>
             </div>

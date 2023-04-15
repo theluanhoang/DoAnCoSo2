@@ -8,7 +8,7 @@ import {
   AiOutlineSearch,
   AiOutlineMenu,
 } from "react-icons/ai";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaBars } from "react-icons/fa";
 import { RiArrowDownSFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { search, showModalCart } from "../../redux/actions";
@@ -19,11 +19,11 @@ import SidebarMenu from "../SidebarMenu";
 const cx = classNames.bind(styles);
 
 function Navbar() {
-    const dispatch = useDispatch();
-    const [query, setQuery] = React.useState('');
-    const showModal = React.useCallback(() => {
-        dispatch(showModalCart())
-    }, [dispatch])
+  const dispatch = useDispatch();
+  const [query, setQuery] = React.useState('');
+  const showModal = React.useCallback(() => {
+    dispatch(showModalCart())
+  }, [dispatch])
 
   const [showSidebarMenu, setShowSidebarMenu] = React.useState(false)
 
@@ -37,7 +37,13 @@ function Navbar() {
   return (
     <>
       <div className={cx("navbar")}>
-        <div className={cx("navbar__container")}>
+        <div className={cx(["navbar__container", 'container'])}>
+          <div className={cx("navbar__logo")}>
+            <img
+              src="https://sfresh.w2.exdomain.net/image/catalog/sfresh/logo/logo.png"
+              alt="S.Fresh"
+            />
+          </div>
           <ul className={cx("navbar__categories")}>
             <li className={cx("navbar__categories--item")}>
               <Link to={"/"}>Trang chủ</Link>
@@ -56,90 +62,85 @@ function Navbar() {
               <Link to={"/contact"}>Liên hệ</Link>
             </li>
           </ul>
-          <div className={cx("navbar__logo")}>
-            <img
-              src="https://sfresh.w2.exdomain.net/image/catalog/sfresh/logo/logo.png"
-              alt="S.Fresh"
-            />
-          </div>
-          <div className={cx("navbar__search")}>
-            <input
-              type="text"
-              placeholder="Search"
-              value={query}
-              onChange={searchHandler}
-            />
-            <Link to={"/search/" + query} className={cx("navbar__searchIcon")}>
-              <AiOutlineSearch className={cx("navbar__searchIcon--icon")} />
-            </Link>
-          </div>
-          <ul className={cx("navbar__icons")}>
-            <li className={cx("navbar__icons--item")}>
-              <Link to={"/heart"}>
-                <AiOutlineHeart />
+
+          <div className={cx("navbar__function")}>
+            <div className={cx("navbar__search")}>
+              <input
+                type="text"
+                placeholder="Search"
+                value={query}
+                onChange={searchHandler}
+              />
+              <Link to={"/search/" + query} className={cx("navbar__searchIcon")}>
+                <AiOutlineSearch className={cx("navbar__searchIcon--icon")} />
               </Link>
-              <div className={cx("navbar__icons--notification")}>1</div>
-            </li>
-            <li className={cx("navbar__icons--item")}>
-              <Link to={""}>
-                <AiOutlineShoppingCart onClick={showModal} />
-              </Link>
-              <div className={cx("navbar__icons--notification")}>
-                {shoppingCart.length}
-              </div>
-            </li>
-            <li className={cx("navbar__icons--item", "navbar__icons--avatar")}>
-              {currentUser ? (
-                <Link to={""}>
-                  <img
-                    style={{ width: "30px" }}
-                    src={User}
-                    alt={currentUser.email}
-                  />
+            </div>
+            <ul className={cx("navbar__icons")}>
+              <li className={cx("navbar__icons--item")}>
+                <Link to={"/heart"}>
+                  <AiOutlineHeart />
                 </Link>
-              ) : (
+                <div className={cx("navbar__icons--notification")}>1</div>
+              </li>
+              <li className={cx("navbar__icons--item")}>
                 <Link to={""}>
-                  <FaUserCircle />
+                  <AiOutlineShoppingCart onClick={showModal} />
                 </Link>
-              )}
-              {currentUser ? (
-                <ul
-                  className={cx("navbar__icons--list")}
-                  style={{ width: "200px", height: "150px" }}
-                >
-                  {currentUser.admin && (
+                <div className={cx("navbar__icons--notification")}>
+                  {shoppingCart.length}
+                </div>
+              </li>
+              <li className={cx("navbar__icons--item", "navbar__icons--avatar")}>
+                {currentUser ? (
+                  <Link to={""}>
+                    <img
+                      style={{ width: "30px" }}
+                      src={User}
+                      alt={currentUser.email}
+                    />
+                  </Link>
+                ) : (
+                  <Link to={""}>
+                    <FaUserCircle className={cx("nav__user-icon")} />
+                    <FaBars className={cx('nav__bars-icon')} onClick={() => setShowSidebarMenu(true)} />
+                  </Link>
+                )}
+                {currentUser ? (
+                  <ul
+                    className={cx("navbar__icons--list")}
+                    style={{ width: "200px", height: "150px" }}
+                  >
+                    {currentUser.admin && (
+                      <li className={cx("navbar__icons--sign")}>
+                        <Link to="/admin">Bảng điều khiển</Link>
+                      </li>
+                    )}
                     <li className={cx("navbar__icons--sign")}>
-                      <Link to="/admin">Bảng điều khiển</Link>
+                      <Link to="/account">Tài khoản</Link>
                     </li>
-                  )}
-                  <li className={cx("navbar__icons--sign")}>
-                    <Link to="/account">Tài khoản</Link>
-                  </li>
-                  <li className={cx("navbar__icons--sign")}>
-                    <Link to=""onClick={() => {
-                      localStorage.removeItem('user');
-                      window.location.href = 'http://localhost:3000/sign-in'
-                    }}>Đăng xuất</Link>
-                  </li>
-                </ul>
-              ) : (
-                <ul className={cx("navbar__icons--list")}>
-                  <li className={cx("navbar__icons--sign")}>
-                    <Link to="/sign-in">Đăng nhập</Link>
-                  </li>
-                  <li className={cx("navbar__icons--sign")}>
-                    <Link to="/sign-up">Đăng kí</Link>
-                  </li>
-                </ul>
-              )}
-            </li>
-            <li className={cx("navbar__icons--item", "navbar__icons--menu")} onClick={() => setShowSidebarMenu(true)}>
-              <AiOutlineMenu />
-            </li>
-          </ul>
+                    <li className={cx("navbar__icons--sign")}>
+                      <Link to="" onClick={() => {
+                        localStorage.removeItem('user');
+                        window.location.href = 'http://localhost:3000/sign-in'
+                      }}>Đăng xuất</Link>
+                    </li>
+                  </ul>
+                ) : (
+                  <ul className={cx("navbar__icons--list")}>
+                    <li className={cx("navbar__icons--sign")}>
+                      <Link to="/sign-in">Đăng nhập</Link>
+                    </li>
+                    <li className={cx("navbar__icons--sign")}>
+                      <Link to="/sign-up">Đăng kí</Link>
+                    </li>
+                  </ul>
+                )}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <SidebarMenu showSidebarMenu={showSidebarMenu} setShowSidebarMenu={setShowSidebarMenu}/>
+      <SidebarMenu showSidebarMenu={showSidebarMenu} setShowSidebarMenu={setShowSidebarMenu} />
     </>
   );
 }

@@ -7,12 +7,12 @@ const cx = classNames.bind(styles);
 function Banner({ image, items, title, right }) {
     return (
         <div className={cx('banner')}>
-            <div className={cx(right ? 'right' : 'banner__categories')}>
+            <div className={cx('banner__image')}>
                 <img src={image} alt='' />
             </div>
-            <div className={cx(right ? 'banner__content--right' :"banner__content")}>
-                <h2>{title}</h2>
-                <ul>
+            <div className={cx('banner__content')}>
+                <h2 className={cx('banner-content__title')}>{title}</h2>
+                <ul className={cx('banner-content__list')}>
                     {
                         items ? items.map(item => <li> {item} </li>) : ''
                     }

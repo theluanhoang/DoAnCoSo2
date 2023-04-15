@@ -8,11 +8,11 @@ const cx = classNames.bind(styles)
 
 function News({ image, desc, user, time }) {
     return (
-        <div className={cx('news__list--item')}>
-            <Link to={''}>
-                <img src={image} alt='' className={cx('news__list--itemImage')} />
-            </Link>
-            <div className={cx('news__list--itemContent')}>
+        <div className={cx('new')}>
+            <div to={''} className={cx('new__image')}>
+                <img src={image} alt='' />
+            </div>
+            <div className={cx('new__information')}>
                 {
                     desc ? <h2>{desc}</h2> : <></>
                 }

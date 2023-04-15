@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Wishlist.module.scss'
 import classNames from 'classnames/bind'
 import { products } from '../../../products'
-import Product from '../../ProductList/Product'
+import Product from '../../Product'
 const cx = classNames.bind(styles)
 
 function WishList() {

@@ -1,0 +1,121 @@
+.btn--icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 100rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a:hover {
+    color: white;
+}
+.border {
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+    margin: 0 10px;
+}
+.product {
+    flex-shrink: 0;
+    position: relative;
+    max-width: 225px;
+    border-radius: 15px;
+    padding-bottom: 10px;
+    background-color: white;
+    .productTop {
+        padding: 10px;
+        overflow: hidden;
+        width: 100%;
+        height: 225px;
+        position: relative;
+        .product--image {
+            width: 100%;
+            object-fit: cover;
+            transition: all ease-in-out 0.3s;
+        }
+        .product__button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            bottom: -45px;
+            transition: all ease-in-out 0.4s;
+            &--heart {
+                @extend .btn--icon;
+                @extend .center;
+                background-color: #de2828;
+            }
+            &--shoppingCart {
+                @extend .btn--icon;
+                @extend .center;
+                background-color: #3ba66b;
+            }
+            &--icon {
+                font-size: 28px;
+            }
+        }
+        &:nth-child(8) {
+            border: none;
+        }
+        &:hover .product--image {
+            transform: scale(1.11);
+            transition: all ease-in-out 0.3s;
+        }
+        &:hover .product__button {
+            bottom: 0px;
+            transition: all ease-in-out 0.3s;
+        }
+    }
+    .productBottom {
+        &__title {
+            p {
+                text-align: center;
+                font-weight: 600;
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        &__price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            p {
+                padding: 0;
+                margin: 0;
+            }
+            &Sale {
+                font-weight: 700;
+                color: #de2828;
+            }
+            &Current {
+                font-weight: 200;
+                font-size: 14px;
+                color: #b5b5b5;
+            }
+        }
+    }
+
+    &__sale {
+        position: absolute;
+        width: 50px;
+        height: 22px;
+        border-top-left-radius: 15px;
+        border-bottom-right-radius: 11px;
+        background-color: #f14e18;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+    }
+}

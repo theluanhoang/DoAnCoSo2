@@ -11,32 +11,22 @@ a {
 
 .navbar {
   background-color: #3ba66b;
-  max-width: 100%;
   height: 120px;
   position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: url("https://sfresh.w2.exdomain.net/image/catalog/sfresh/bg-after-header.png");
-    background-position-x: center;
-    background-repeat: no-repeat;
-    top: 120px;
-    z-index: 100;
-  }
   &__categories {
+    padding: 0;
+    margin: 0;
     display: flex;
-    flex: 1.2;
+    align-items: center;
+    justify-content: space-around;
+    flex: 3;
     &--item {
-      padding: 2.5%;
       display: flex;
       justify-content: center;
       align-items: center;
       color: #fff;
       font-weight: 600;
       font-size: 16px;
-      margin-top: 20px;
       a {
         &:hover {
           color: $third-color;
@@ -47,16 +37,20 @@ a {
   &__container {
     display: flex;
     align-items: center;
-    width: 90%;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 100px;
-    margin: 0 auto;
+    gap: 20px;
+  }
+  &__function {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
   }
   &__search {
-    flex: 0.5;
-    width: 227px;
+    max-width: 227px;
     height: 46px;
-    min-height: 46px;
     position: relative;
     & input {
       width: 100%;
@@ -100,13 +94,12 @@ a {
 
   &__icons {
     display: flex;
-    flex: 0.25;
     justify-content: space-around;
-    margin-left: 30px;
+    align-items: center;
+    gap: 10px;
     & li {
       position: relative;
       font-size: 28px;
-      padding: 0 8%;
       a {
         &:hover {
           color: $third-color;
@@ -164,8 +157,11 @@ a {
   }
 
   &__logo {
-    flex: 1;
-    margin-left: 100px;
+    max-width: 180px;
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
   }
 }
 
@@ -178,96 +174,47 @@ a {
   color: #fff;
 }
 
+.nav__bars-icon {
+  display: none;
+  margin-top: 5px;
+}
+
 @media (max-width: 1023px) {
-  .navbar {
-    &::after {
-      display: none;
-    }
-
-    &__logo {
-      img {
-        width: 160px;
-      }
-    }
-
-    .navbar__icons--avatar {
-      display: none;
-    }
-
-    .navbar__icons--menu {
-      display: block;
-      margin-right: 24px;
-    }
-
-    &__container {
-      width: 100%;
-    }
-
-    &__search {
-      input {
-        border-radius: 25px;
-      }
-
-      .navbar__searchIcon {
-        border-radius: 25px;
-      }
-    }
-  }
-
   .navbar__categories {
     display: none;
   }
-}
 
-@media (min-width: 740px) and (max-width: 1023px) {
-  .navbar {
-    height: 108px;
-    &__logo {
-      flex: 0;
-      img {
-        width: 160px;
-      }
-    }
-    &__container {
-      height: 100%;
-      justify-content: space-between;
-    }
+  .navbar__function {
+    justify-content: end;
+    gap: 30px;
+  }
 
-    &__logo {
-      margin-left: 34px;
-    }
+  .nav__user-icon {
+    display: none;
+  }
+  .nav__bars-icon {
+    display: block;
   }
 }
 
-@media (max-width: 739px) {
-  .navbar {
-    &__logo {
-      flex: 0;
-      margin-left: 0;
-      img {
-        width: 130px;
-      }
-    }
+@media (min-width: 768px) {
+}
 
-    .navbar__container {
-      position: relative;
-      height: 120px;
-      align-items: flex-start;
-      padding-top: 8px;
-    }
-
-    .navbar__search {
-      position: absolute;
-      bottom: 8px;
-    }
-
-    .navbar__icons--menu {
-      display: block;
-      margin-right: 12px;
-    }
-
-    .navbar__search {
-      width: 87%;
-    }
+@media (max-width: 639px) {
+  .navbar__search {
+    display: none;
   }
+
+  .navbar__logo {
+    max-width: 120px;
+  }
+
+  .navbar {
+    height: 100px;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }

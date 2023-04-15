@@ -4,7 +4,7 @@ import classNames from 'classnames/bind'
 import { AiOutlineHeart, AiOutlineShoppingCart, AiOutlineSetting } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { showModalCart } from '../../../redux/actions';
+import { showModalCart } from '../../redux/actions';
 import Axios from 'axios';
 
 const cx = classNames.bind(styles)
@@ -45,11 +45,11 @@ function Product({ image, setting, title, priceCurrent, salePercent, border, pro
     const addToCart = () => {
         const item = {
             customerId: currentUser.id,
-            productTitle:  product.title,
-            productPriceCurrent: product.priceCurrent, 
-            productPriceCost: product.priceCost, 
-            productImage: image, 
-            productSalePercent: product.salePercent, 
+            productTitle: product.title,
+            productPriceCurrent: product.priceCurrent,
+            productPriceCost: product.priceCost,
+            productImage: image,
+            productSalePercent: product.salePercent,
         }
 
         Axios.post('http://localhost:5000/shopping-cart/add', item)
@@ -89,7 +89,6 @@ function Product({ image, setting, title, priceCurrent, salePercent, border, pro
                     <p>{title}</p>
                 </div>
                 <div className={cx('productBottom__price')}>
-
                     {
                         salePercent ?
                             (

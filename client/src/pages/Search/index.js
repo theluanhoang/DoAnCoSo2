@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import Note from '../../components/Note'
 import { Link } from 'react-router-dom'
-import Product from '../../components/ProductList/Product'
+import Product from '../../components/Product'
 import { useSelector } from 'react-redux'
 import { searchState$, keyState$ } from '../../redux/selectors'
 const cx = classNames.bind(styles)
